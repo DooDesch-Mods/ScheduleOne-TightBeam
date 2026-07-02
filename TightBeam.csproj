@@ -12,8 +12,9 @@
     colour, plus dynamic Blink/Flicker/Pulse and scoped overrides. A tight, bounded cone instead of a map-wide
     floodlight.
 
-    IL2CPP only (net6.0). It uses stock UnityEngine types (Camera/Light/GameObject) and a single Harmony patch on
-    PlayerInventory (the hotbar ALT+scroll guard), so it stays update-resilient.
+    IL2CPP only (net6.0). Beyond stock UnityEngine types (Camera/Light/GameObject) it reads the game's own
+    flashlight state (Phone) and has a single Harmony patch on PlayerInventory (the hotbar ALT+scroll guard);
+    no S1API, no FishNet, no networking.
   -->
 
   <PropertyGroup>

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Il2CppScheduleOne.DevUtilities;
+using Il2CppScheduleOne.UI.Phone;
 using TightBeam.Config;
 using UnityEngine;
 
@@ -51,7 +53,6 @@ namespace TightBeam.Lighting
             _focusTarget = _focus; _scrollVelEma = 0f;
             _intensity = TightBeamPreferences.DefaultIntensity;
             _color = TightBeamPreferences.Color;
-            _isOn = TightBeamPreferences.StartOn;
         }
 
         // ----- rig -----------------------------------------------------------------------------------------------
@@ -134,10 +135,10 @@ namespace TightBeam.Lighting
             _light.color = col;
             _light.enabled = _isOn;
 
-            // Vanilla-light sync: when the beam is nominally ON but an override/effect holds it dark (e.g. a horror
-            // mod's blackout), the game's own flashlight lights (equipped item + phone lamp) go dark WITH it -
-            // otherwise the room stays lit by the vanilla point light and the blackout reads broken.
-            VanillaLightSync.Apply(_isOn && intensity <= 0.05f);
+            // Vanilla-light sync: TightBeam IS the player's flashlight, so while the beam is on we dim the game's own
+            // flashlight lights (equipped item + phone lamp) and show our cone instead - and they stay dark through a
+            // mod blackout too. Restored the instant the flashlight goes off.
+            VanillaLightSync.Apply(_isOn);
         }
 
         private float EffectMultiplier(float dt)
@@ -174,8 +175,41 @@ namespace TightBeam.Lighting
 
         // ----- player controls ------------------------------------------------------------------------------------
 
-        public void SetOn(bool on) { if (on == _isOn) return; _isOn = on; try { Toggled?.Invoke(on); } catch { } }
-        public void Toggle() => SetOn(!_isOn);
+        // Beam on/off follows the game's OWN flashlight state (the phone lamp) - the single source of truth - so it
+        // can never drift out of sync with the vanilla flashlight. Read-only and null-safe before the Phone spawns.
+        public void SyncOnFromGame()
+        {
+            bool on = false;
+            try
+            {
+                if (PlayerSingleton<Phone>.InstanceExists)
+                {
+                    // The game drives PhoneFlashlight.SetActive(FlashlightOn && !IsInVehicle) every frame, so the
+                    // GO's active flag is the effective "flashlight on and visible" signal - it already folds in the
+                    // in-vehicle gate, and reading it avoids pulling in the FishNet Player type.
+                    var pf = PlayerSingleton<Phone>.Instance.PhoneFlashlight;
+                    on = pf != null && pf.activeSelf;
+                }
+            }
+            catch { return; }
+            if (on != _isOn) { _isOn = on; try { Toggled?.Invoke(on); } catch { } }
+        }
+
+        // API on/off drives the game's own flashlight (with its sound + stealth), so the one state stays authoritative.
+        public void SetOn(bool on)
+        {
+            try
+            {
+                if (PlayerSingleton<Phone>.InstanceExists && PlayerSingleton<Phone>.Instance.FlashlightOn != on)
+                    PlayerSingleton<Phone>.Instance.ToggleFlashlight();
+            }
+            catch { }
+        }
+        public void Toggle()
+        {
+            try { if (PlayerSingleton<Phone>.InstanceExists) PlayerSingleton<Phone>.Instance.ToggleFlashlight(); }
+            catch { }
+        }
 
         private void MoveFocusTarget(float delta) { _focusTarget = Mathf.Clamp01(_focusTarget + delta); _manualRange = null; _manualAngle = null; }
         private void SnapFocusTarget(float value) { _focusTarget = Mathf.Clamp01(value); _manualRange = null; _manualAngle = null; }

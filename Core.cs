@@ -10,9 +10,9 @@ using UnityEngine;
 namespace TightBeam
 {
     /// <summary>
-    /// TightBeam entry point. A limited-range handheld flashlight with a cross-mod control API. Player
-    /// controls: toggle key (default F), '['/']' brightness, and ALT + mouse wheel for FOCUS/Pegel (wide near flood
-    /// &lt;-&gt; narrow far throw). No Harmony, no game types - just a camera-following Spot Light.
+    /// TightBeam entry point. A limited-range handheld flashlight with a cross-mod control API. It IS the player's
+    /// flashlight: on/off follows the game's own flashlight state, and ALT + mouse wheel sets FOCUS/Pegel (wide near flood
+    /// &lt;-&gt; narrow far throw). A camera-following Spot Light with a single Harmony patch for the hotbar scroll.
     /// </summary>
     public sealed class Core : MelonMod
     {
@@ -26,7 +26,7 @@ namespace TightBeam
             TightBeamPreferences.Initialize();
             FlashlightController.Instance.InitFromPrefs();
             BridgeHost.Install(); // expose the reflection API to consumer mods immediately (load-order-proof)
-            Log.Msg($"TightBeam initialized. Enabled={TightBeamPreferences.Enabled}. Toggle={TightBeamPreferences.ToggleKey}; " +
+            Log.Msg($"TightBeam initialized. Enabled={TightBeamPreferences.Enabled}. On/off follows the game flashlight; " +
                     $"hold {TightBeamPreferences.FocusModifierKey} + mouse wheel = focus/Pegel.");
         }
 
@@ -48,7 +48,8 @@ namespace TightBeam
             if (!TightBeamPreferences.Enabled || !_inMain) return;
             var c = FlashlightController.Instance;
 
-            if (Input.GetKeyDown(TightBeamPreferences.ToggleKey)) c.Toggle();
+            // Beam on/off = the game's own flashlight state (single source of truth); no separate TightBeam toggle.
+            c.SyncOnFromGame();
             if (!c.IsOn) return;
 
             // ALT + mouse wheel -> focus / Pegel. Call the controller EVERY frame while the modifier is held (even on

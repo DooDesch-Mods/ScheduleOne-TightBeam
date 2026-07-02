@@ -7,9 +7,9 @@ using UnityEngine;
 namespace TightBeam.Lighting
 {
     /// <summary>
-    /// Keeps the game's OWN flashlight lights in step with the beam: when the composited TightBeam output is
-    /// forced dark while nominally on (an override holding intensity at 0 - e.g. a horror mod's anomaly), the
-    /// vanilla lights go dark too, and everything restores the moment the beam comes back.
+    /// Keeps the game's OWN flashlight lights out of the way while TightBeam is lit. TightBeam IS the player's
+    /// flashlight, so whenever its beam is on we disable the vanilla flashlight lights and show TightBeam's cone
+    /// instead (and they stay dark through a mod blackout too). Everything restores the moment the beam goes off.
     ///
     /// Two vanilla sources, both purely local (no RPC / player state touched):
     /// - the equipped Flashlight ITEM: first-person viewmodel under PlayerInventory.equippable; its lights sit on
@@ -18,8 +18,8 @@ namespace TightBeam.Lighting
     /// - the PHONE lamp: Phone.PhoneFlashlight's ACTIVE state is rewritten every frame by Phone.Update, but a
     ///   disabled Light COMPONENT under it survives that SetActive, so we disable components, never the GO.
     ///
-    /// Captured references die with unequip/scene loads - every pass revalidates, and the periodic rescan while
-    /// dark picks up a mid-blackout equip or phone toggle.
+    /// Captured references die with unequip/scene loads - every pass revalidates, re-asserts the disable each
+    /// frame, and rescans ~10x/sec to pick up a just-equipped item or a phone lamp toggled on mid-beam.
     /// </summary>
     internal static class VanillaLightSync
     {
@@ -34,15 +34,37 @@ namespace TightBeam.Lighting
             if (dark)
             {
                 if (!_dark) { _dark = true; _nextRescan = 0f; }
+                // Re-assert the disable every frame. The game can flip a captured light back on between rescans
+                // (an equip, the phone re-activating its lamp, an OptimizedLight state rewrite); without this it
+                // flashes back on until the next scan. Allocation-free, so it is cheap to run per frame.
+                ReassertDisabled();
+                // Scan for NEWLY appeared lights (a mid-blackout equip / phone-lamp toggle) at a tight cadence,
+                // so a fresh vanilla light goes dark within ~0.1s instead of lingering up to a second.
                 if (Time.time >= _nextRescan)
                 {
-                    _nextRescan = Time.time + 1f; // catch a mid-blackout equip / phone-lamp toggle
+                    _nextRescan = Time.time + 0.1f;
                     Capture();
                 }
             }
             else if (_dark)
             {
                 Restore();
+            }
+        }
+
+        // Re-disable any already-captured light the game turned back on. Guarded so it only writes on a real
+        // flip (no redundant UpdateLightState calls) and stays null-safe across unequip / scene teardown.
+        private static void ReassertDisabled()
+        {
+            for (int i = 0; i < _opt.Count; i++)
+            {
+                var ol = _opt[i];
+                if (ol != null && ol.Enabled) { ol.Enabled = false; ol.UpdateLightState(); }
+            }
+            for (int i = 0; i < _bare.Count; i++)
+            {
+                var l = _bare[i];
+                if (l != null && l.enabled) l.enabled = false;
             }
         }
 

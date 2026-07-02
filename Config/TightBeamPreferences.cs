@@ -14,7 +14,6 @@ namespace TightBeam.Config
         private static MelonPreferences_Category _cat;
 
         private static MelonPreferences_Entry<bool> _enabled;
-        private static MelonPreferences_Entry<string> _toggleKey;
         private static MelonPreferences_Entry<string> _focusModifierKey;
         private static MelonPreferences_Entry<float> _defaultIntensity;
         private static MelonPreferences_Entry<float> _minIntensity;
@@ -35,10 +34,8 @@ namespace TightBeam.Config
         private static MelonPreferences_Entry<float> _angleNarrow;
         private static MelonPreferences_Entry<string> _colorHex;
         private static MelonPreferences_Entry<bool> _castShadows;
-        private static MelonPreferences_Entry<bool> _startOn;
 
         public static bool Enabled => _enabled.Value;
-        public static KeyCode ToggleKey => ParseKey(_toggleKey.Value, KeyCode.F);
         public static KeyCode FocusModifierKey => ParseKey(_focusModifierKey.Value, KeyCode.LeftAlt);
 
         public static float DefaultIntensity => Mathf.Clamp(_defaultIntensity.Value, MinIntensity, MaxIntensity);
@@ -66,14 +63,12 @@ namespace TightBeam.Config
 
         public static Color Color => ParseColor(_colorHex.Value, new Color(0.90f, 0.95f, 1.00f));
         public static bool CastShadows => _castShadows.Value;
-        public static bool StartOn => _startOn.Value;
 
         public static void Initialize()
         {
             _cat = MelonPreferences.CreateCategory("TightBeam");
 
             _enabled = _cat.CreateEntry("Enabled", true, description: "Master switch for the whole mod.");
-            _toggleKey = _cat.CreateEntry("ToggleKey", "F", description: "KeyCode name to toggle the flashlight on/off.");
             _focusModifierKey = _cat.CreateEntry("FocusModifierKey", "LeftAlt",
                 description: "Hold this key and scroll the mouse wheel to adjust FOCUS (Pegel): wide near flood <-> narrow far throw.");
             _defaultIntensity = _cat.CreateEntry("DefaultIntensity", 7f, description: "Base beam brightness the flashlight rests at (clamped to Min/Max). Not player-adjustable in-game; mods can drive it via the API.");
@@ -96,7 +91,6 @@ namespace TightBeam.Config
             _angleNarrow = _cat.CreateEntry("AngleNarrow", 16f, description: "Cone angle (deg) at full NARROW focus.");
             _colorHex = _cat.CreateEntry("ColorHex", "#E6F2FF", description: "Beam colour (hex). Cool white by default so it reads against warm/sickly environments.");
             _castShadows = _cat.CreateEntry("CastShadows", true, description: "Cast soft shadows so the beam is blocked by walls (turn off on low-end machines).");
-            _startOn = _cat.CreateEntry("StartOn", false, description: "Whether the flashlight begins switched on.");
         }
 
         private static KeyCode ParseKey(string s, KeyCode fallback)

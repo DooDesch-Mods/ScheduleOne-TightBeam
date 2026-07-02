@@ -2,9 +2,9 @@
 
 > 🛟 **Need help or found a bug?** Get support at [support.doodesch.de](https://support.doodesch.de).
 
-> A proper handheld flashlight for Schedule I. Toggle it with a key, then hold
-> **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
-> map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
+> A proper handheld flashlight for Schedule I. It upgrades the game's own flashlight - toggle it with your
+> flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
+> far-reaching throw. No map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
@@ -23,9 +23,12 @@
   dark room).
 - **Shadows and a cool-white tint by default**, so the beam is blocked by walls and reads against the
   game's warm lighting. Both are configurable (turn shadows off on low-end machines).
-- **Light-touch and update-resilient.** It is just a spotlight that follows your camera - no game
-  systems rewired. The only game hook is a tiny guard so ALT+scroll drives the beam instead of cycling
-  your hotbar.
+- **In perfect sync with the game.** TightBeam drives off the game's own flashlight state, so its on/off
+  never falls out of step - your flashlight key toggles it, and it swaps the vanilla point light for its
+  own clean cone.
+- **Light-touch and update-resilient.** A spotlight that follows your camera - no gameplay rewired, no
+  networking touched. It reads the game's flashlight state locally, and a tiny guard keeps ALT+scroll from
+  cycling your hotbar.
 - **Cross-mod API.** Other mods can drive the beam - dim it in a dark room, flicker it near power,
   blink it as an alert - through a drop-in `Beam` shim. See [For modders](#for-modders).
 
@@ -33,10 +36,10 @@
 
 | Input | Action |
 |---|---|
-| `F` | Toggle the flashlight on/off |
+| Flashlight key (your game bind) | Toggle the flashlight on/off |
 | `ALT` + mouse wheel | Focus: wide near-flood to tight far-throw |
 
-All keys are rebindable in the config.
+On/off uses your game's own flashlight key; the focus modifier is rebindable in TightBeam's config.
 
 ## Requirements
 
@@ -45,7 +48,7 @@ All keys are rebindable in the config.
 | Schedule I | IL2CPP (current Steam public build) |
 | MelonLoader | `0.7.3+` |
 
-No other dependencies - TightBeam only touches stock Unity lighting.
+No other dependencies - just MelonLoader. TightBeam reads the game's own flashlight state and renders its own light; no S1API, no networking.
 
 ## Installation
 
@@ -65,7 +68,6 @@ Settings live in `UserData/MelonPreferences.cfg` under `[TightBeam]`. Highlights
 | Setting | Default | What it does |
 |---|---|---|
 | `Enabled` | `true` | Master on/off for the whole mod. |
-| `ToggleKey` | `F` | Key to switch the flashlight on/off. |
 | `FocusModifierKey` | `LeftAlt` | Hold this and scroll to change focus. |
 | `DefaultFocus` | `0.5` | Starting focus. `1` = wide flood, `0` = tight throw. |
 | `DefaultIntensity` | `7` | Base brightness (clamped to Min/Max). |
@@ -74,7 +76,6 @@ Settings live in `UserData/MelonPreferences.cfg` under `[TightBeam]`. Highlights
 | `AngleWide` / `AngleNarrow` | `66` / `16` | Cone angle (deg) at each focus extreme. |
 | `ColorHex` | `#E6F2FF` | Beam colour (cool white). |
 | `CastShadows` | `true` | Soft shadows (turn off on low-end machines). |
-| `StartOn` | `false` | Start with the flashlight already on. |
 
 There are more fine-tuning knobs for the focus feel (sensitivity, easing, flick threshold) in the same
 section if you want to dial it in. Editing the file takes effect on the next launch.
