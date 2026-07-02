@@ -25,7 +25,8 @@
 - **Light-touch and update-resilient.** A spotlight that follows your camera - no gameplay rewired, no
   networking touched; a tiny guard keeps ALT+scroll from cycling your hotbar.
 - **Cross-mod API.** Other mods can drive the beam (dim, flicker, blink, override) through a drop-in
-  shim that is a safe no-op when TightBeam is absent.
+  shim that is a safe no-op when TightBeam is absent. Full reference on the
+  [Modder API wiki](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/Modder-API).
 
 ## Controls
 
