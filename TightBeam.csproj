@@ -7,13 +7,13 @@
   </ItemGroup>
 
   <!--
-    TightBeam - a believable, LIMITED-range handheld flashlight for Schedule I (MelonLoader IL2CPP), with a public
+    TightBeam - a believable, limited-range handheld flashlight for Schedule I (MelonLoader, IL2CPP), with a public
     cross-mod control API (TightBeam.Api / the `Beam` class) so other mods can drive it: on/off, intensity, range,
-    colour, plus dynamic Blink/Flicker/Pulse and scoped overrides. Replaces the over-bright Flashlizzy_Booster
-    (range 60 -> a map-spanning floodlight) with a tight ~12m/45-degree cone.
+    colour, plus dynamic Blink/Flicker/Pulse and scoped overrides. A tight, bounded cone instead of a map-wide
+    floodlight.
 
-    IL2CPP only for now (net6.0). The mod touches only stock UnityEngine types (Camera/Light/GameObject) - no game
-    assembly, no Harmony, no networking - so it is maximally update-resilient.
+    IL2CPP only (net6.0). It uses stock UnityEngine types (Camera/Light/GameObject) and a single Harmony patch on
+    PlayerInventory (the hotbar ALT+scroll guard), so it stays update-resilient.
   -->
 
   <PropertyGroup>

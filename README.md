@@ -1,0 +1,108 @@
+# TightBeam - A Flashlight That Behaves
+
+> 🛟 **Need help or found a bug?** Get support at [support.doodesch.de](https://support.doodesch.de).
+
+> A believable, limited-range handheld flashlight for Schedule I. Toggle it with a key, then hold
+> **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
+> map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
+![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
+![Status](https://img.shields.io/badge/status-working-brightgreen)
+
+## Features
+
+- **A beam you can aim and shape.** Hold **ALT + mouse wheel** to slide a single Focus axis: the wide
+  end is a short, broad flood right in front of you; the narrow end is a tight cone that throws far.
+  Range and cone angle both follow the focus, so you get real control without ever washing out the map.
+- **Velocity-sensitive focus.** Scroll slowly for fine steps; flick fast and the beam races to the
+  nearest extreme. The displayed beam eases in smoothly instead of popping.
+- **Sensible brightness.** `[` and `]` nudge brightness within a hard floor and ceiling, so you can't
+  accidentally turn night into noon.
+- **Shadows and a cool-white tint by default**, so the beam is blocked by walls and reads against the
+  game's warm lighting. Both are configurable (turn shadows off on low-end machines).
+- **Light-touch and update-resilient.** It is just a spotlight that follows your camera - no game
+  systems rewired. The only game hook is a tiny guard so ALT+scroll drives the beam instead of cycling
+  your hotbar.
+- **Cross-mod API.** Other mods can drive the beam - dim it in a dark room, flicker it near power,
+  blink it as an alert - through a drop-in `Beam` shim. See [For modders](#for-modders).
+
+## Controls
+
+| Input | Action |
+|---|---|
+| `F` | Toggle the flashlight on/off |
+| `ALT` + mouse wheel | Focus: wide near-flood to tight far-throw |
+| `]` | Brighter |
+| `[` | Dimmer |
+
+All keys are rebindable in the config.
+
+## Requirements
+
+| Component | Version / Source |
+|---|---|
+| Schedule I | IL2CPP (current Steam public build) |
+| MelonLoader | `0.7.3+` |
+
+No other dependencies - TightBeam only touches stock Unity lighting.
+
+## Installation
+
+### Recommended: a Thunderstore mod manager
+
+Install with r2modman / Gale from the Schedule I community; MelonLoader is pulled in automatically.
+
+### Manual
+
+1. Install **MelonLoader 0.7.3** for Schedule I.
+2. Drop **`TightBeam.dll`** into your Schedule I `Mods/` folder.
+
+## Configuration
+
+Settings live in `UserData/MelonPreferences.cfg` under `[TightBeam]`. Highlights:
+
+| Setting | Default | What it does |
+|---|---|---|
+| `Enabled` | `true` | Master on/off for the whole mod. |
+| `ToggleKey` | `F` | Key to switch the flashlight on/off. |
+| `FocusModifierKey` | `LeftAlt` | Hold this and scroll to change focus. |
+| `DefaultFocus` | `0.5` | Starting focus. `1` = wide flood, `0` = tight throw. |
+| `DefaultIntensity` | `7` | Base brightness (clamped to Min/Max). |
+| `MinIntensity` / `MaxIntensity` | `1` / `20` | Hard floor / ceiling for brightness. |
+| `RangeWide` / `RangeNarrow` | `8` / `34` | Beam range (m) at each focus extreme. |
+| `AngleWide` / `AngleNarrow` | `66` / `16` | Cone angle (deg) at each focus extreme. |
+| `ColorHex` | `#E6F2FF` | Beam colour (cool white). |
+| `CastShadows` | `true` | Soft shadows (turn off on low-end machines). |
+| `StartOn` | `false` | Start with the flashlight already on. |
+
+There are more fine-tuning knobs for the focus feel (sensitivity, easing, flick threshold) in the same
+section if you want to dial it in. Editing the file takes effect on the next launch.
+
+## For modders
+
+TightBeam exposes a small cross-mod control API so your mod can drive the player's flashlight - on/off,
+brightness, range, colour, plus Blink/Flicker/Pulse and scoped per-field overrides. Every call is a safe
+no-op when TightBeam is not installed, so you can ship it with no hard dependency.
+
+Drop [`TightBeam.Api/TightBeam.cs`](TightBeam.Api/TightBeam.cs) into your project (or reference
+`TightBeam.Api.dll`) and call it:
+
+```csharp
+using TightBeam.Api;
+
+Beam.Blink(3);                                 // blink as an alert
+using (var ov = Beam.BeginOverride("MyMod"))   // scoped, per-field override
+{
+    ov.SetIntensity(1f).SetSpotAngle(28f);     // dim + narrow while in a zone
+}                                              // released -> back to the player's own settings
+```
+
+## Credits
+
+- **DooDesch** - mod author.
+
+## License
+
+Provided as-is under the [MIT License](LICENSE.md).

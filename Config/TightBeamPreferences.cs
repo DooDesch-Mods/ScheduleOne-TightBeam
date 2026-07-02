@@ -7,7 +7,7 @@ namespace TightBeam.Config
     /// MelonPreferences for TightBeam (category "TightBeam"). The headline control is the FOCUS ("Pegel"): a single
     /// 0..1 axis the player scrolls with ALT + mouse wheel that trades a wide short-range flood (focus 1) for a narrow
     /// long-range throw (focus 0). Range and spot angle are BOTH derived from focus between the endpoints below, so a
-    /// low focus can light a distant spot without becoming Flashlizzy's map-wide floodlight.
+    /// low focus can light a distant spot without becoming a map-wide floodlight.
     /// </summary>
     internal static class TightBeamPreferences
     {
@@ -61,7 +61,7 @@ namespace TightBeam.Config
 
         /// <summary>Range at full-WIDE focus (Pegel high): a short, near flood. Clamped sane.</summary>
         public static float RangeWide => Mathf.Clamp(_rangeWide.Value, 3f, 25f);
-        /// <summary>Range at full-NARROW focus (Pegel low): a long, far throw. Clamped sane (never Flashlizzy's 60).</summary>
+        /// <summary>Range at full-NARROW focus (Pegel low): a long, far throw. Clamped sane (kept well short of a map-wide floodlight).</summary>
         public static float RangeNarrow => Mathf.Clamp(_rangeNarrow.Value, 15f, 45f);
         /// <summary>Cone angle at full-WIDE focus (broad).</summary>
         public static float AngleWide => Mathf.Clamp(_angleWide.Value, 40f, 90f);
@@ -84,7 +84,7 @@ namespace TightBeam.Config
             _intensityDownKey = _cat.CreateEntry("IntensityDownKey", "LeftBracket", description: "Decrease brightness while lit.");
             _defaultIntensity = _cat.CreateEntry("DefaultIntensity", 7f, description: "Base beam brightness (clamped to Min/Max).");
             _minIntensity = _cat.CreateEntry("MinIntensity", 1f, description: "Hard floor for brightness.");
-            _maxIntensity = _cat.CreateEntry("MaxIntensity", 20f, description: "Hard ceiling for brightness (prevents the Flashlizzy 'hold the key, go blinding' bug).");
+            _maxIntensity = _cat.CreateEntry("MaxIntensity", 20f, description: "Hard ceiling for brightness (prevents runaway 'hold the key and go blinding' brightness).");
             _defaultFocus = _cat.CreateEntry("DefaultFocus", 0.5f,
                 description: "Starting focus/Pegel 0..1. 1 = wide short-range flood, 0 = narrow long-range throw, 0.5 = a balanced ~mid beam.");
             _focusSensitivity = _cat.CreateEntry("FocusSensitivity", 0.08f, description: "Focus change per notch at SLOW/precise scroll speed (the fine-adjustment floor step).");

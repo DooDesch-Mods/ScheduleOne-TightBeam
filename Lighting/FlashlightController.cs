@@ -58,7 +58,7 @@ namespace TightBeam.Lighting
 
         /// <summary>Create the light (once) and keep it following the camera. Safe to call every frame - it lazily
         /// (re)acquires Camera.main only when needed, and the light survives scene loads (DontDestroyOnLoad), so it is
-        /// never torn down and rebuilt the way Flashlizzy did.</summary>
+        /// never torn down and rebuilt on every toggle.</summary>
         public void EnsureRig()
         {
             if (_light == null)

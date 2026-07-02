@@ -1,0 +1,8 @@
+{
+  "name": "TightBeam",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam",
+  "description": "A believable, limited-range handheld flashlight - dial the beam from a wide near-flood to a tight far-throw.",
+  "dependencies": ["LavaGang-MelonLoader-0.7.3"],
+  "contributors": ["DooDesch"]
+}

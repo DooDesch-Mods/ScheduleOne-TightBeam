@@ -4,7 +4,7 @@ using TightBeam.Config;
 using TightBeam.Lighting;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "1.0.0", "DooDesch", null)]
+[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "1.0.0", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
 
 namespace TightBeam

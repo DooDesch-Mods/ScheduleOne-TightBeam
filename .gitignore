@@ -1,3 +1,16 @@
+# Build output
 bin/
 obj/
+
+# IDE
+.vs/
 *.user
+*.suo
+
+# Agent / local
+.claude/
+Mods/
+
+# OS
+Thumbs.db
+.DS_Store
