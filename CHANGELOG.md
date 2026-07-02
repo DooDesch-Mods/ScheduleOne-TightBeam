@@ -13,7 +13,8 @@ Initial release.
 - **Focus control on ALT + mouse wheel** - a single axis from a wide near-flood to a tight far-throw,
   driving both range and cone angle. Velocity-sensitive: slow scrolling makes fine steps, a fast flick
   races the beam to the nearest extreme, and the displayed beam eases in smoothly.
-- Brightness nudge on `[` / `]` within a hard floor and ceiling; toggle on `F`.
+- Toggle on `F`. Brightness stays within a hard floor and ceiling and is driven by mods via the API - there
+  are no player brightness keys.
 - Soft shadows and a cool-white default tint, both configurable, plus configurable range/angle
   endpoints, colour, start-on and full key rebinding (MelonPreferences under `[TightBeam]`).
 - **Cross-mod control API** (`TightBeam.Api` / the `Beam` shim): on/off, intensity, range, colour,

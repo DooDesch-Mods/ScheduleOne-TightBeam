@@ -16,8 +16,8 @@
   a short, broad flood; narrow end = a tight cone that throws far. Range and cone angle both follow it.
 - **Velocity-sensitive focus.** Scroll slowly for fine steps; flick fast and the beam races to the
   nearest extreme, easing in smoothly instead of popping.
-- **Sensible brightness.** `[` and `]` nudge brightness within a hard floor and ceiling, so you never
-  turn night into noon.
+- **Fixed, sane brightness.** Held within a hard floor and ceiling, so nothing blinds the screen. Brightness
+  is not a player control; mods can drive it via the API for effects.
 - **Shadows and a cool-white tint by default**, both configurable, so the beam is blocked by walls and
   reads against the game's warm lighting.
 - **Light-touch and update-resilient.** Just a spotlight that follows your camera - no game systems
@@ -29,7 +29,6 @@
 
 - `F` - toggle on/off
 - `ALT` + mouse wheel - focus (wide near-flood to tight far-throw)
-- `]` / `[` - brighter / dimmer
 
 All keys are rebindable in the config.
 

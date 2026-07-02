@@ -18,8 +18,9 @@
   Range and cone angle both follow the focus, so you get real control without ever washing out the map.
 - **Velocity-sensitive focus.** Scroll slowly for fine steps; flick fast and the beam races to the
   nearest extreme. The displayed beam eases in smoothly instead of popping.
-- **Sensible brightness.** `[` and `]` nudge brightness within a hard floor and ceiling, so you can't
-  accidentally turn night into noon.
+- **Fixed, sane brightness.** The beam holds a sensible brightness within a hard floor and ceiling - no
+  accidental whiteout. Brightness is not a player control; mods can drive it through the API (e.g. dim it in a
+  dark room).
 - **Shadows and a cool-white tint by default**, so the beam is blocked by walls and reads against the
   game's warm lighting. Both are configurable (turn shadows off on low-end machines).
 - **Light-touch and update-resilient.** It is just a spotlight that follows your camera - no game
@@ -34,8 +35,6 @@
 |---|---|
 | `F` | Toggle the flashlight on/off |
 | `ALT` + mouse wheel | Focus: wide near-flood to tight far-throw |
-| `]` | Brighter |
-| `[` | Dimmer |
 
 All keys are rebindable in the config.
 

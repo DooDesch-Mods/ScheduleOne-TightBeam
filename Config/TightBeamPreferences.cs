@@ -16,8 +16,6 @@ namespace TightBeam.Config
         private static MelonPreferences_Entry<bool> _enabled;
         private static MelonPreferences_Entry<string> _toggleKey;
         private static MelonPreferences_Entry<string> _focusModifierKey;
-        private static MelonPreferences_Entry<string> _intensityUpKey;
-        private static MelonPreferences_Entry<string> _intensityDownKey;
         private static MelonPreferences_Entry<float> _defaultIntensity;
         private static MelonPreferences_Entry<float> _minIntensity;
         private static MelonPreferences_Entry<float> _maxIntensity;
@@ -42,8 +40,6 @@ namespace TightBeam.Config
         public static bool Enabled => _enabled.Value;
         public static KeyCode ToggleKey => ParseKey(_toggleKey.Value, KeyCode.F);
         public static KeyCode FocusModifierKey => ParseKey(_focusModifierKey.Value, KeyCode.LeftAlt);
-        public static KeyCode IntensityUpKey => ParseKey(_intensityUpKey.Value, KeyCode.RightBracket);
-        public static KeyCode IntensityDownKey => ParseKey(_intensityDownKey.Value, KeyCode.LeftBracket);
 
         public static float DefaultIntensity => Mathf.Clamp(_defaultIntensity.Value, MinIntensity, MaxIntensity);
         public static float MinIntensity => Mathf.Max(0.05f, _minIntensity.Value);
@@ -80,11 +76,9 @@ namespace TightBeam.Config
             _toggleKey = _cat.CreateEntry("ToggleKey", "F", description: "KeyCode name to toggle the flashlight on/off.");
             _focusModifierKey = _cat.CreateEntry("FocusModifierKey", "LeftAlt",
                 description: "Hold this key and scroll the mouse wheel to adjust FOCUS (Pegel): wide near flood <-> narrow far throw.");
-            _intensityUpKey = _cat.CreateEntry("IntensityUpKey", "RightBracket", description: "Increase brightness while lit.");
-            _intensityDownKey = _cat.CreateEntry("IntensityDownKey", "LeftBracket", description: "Decrease brightness while lit.");
-            _defaultIntensity = _cat.CreateEntry("DefaultIntensity", 7f, description: "Base beam brightness (clamped to Min/Max).");
-            _minIntensity = _cat.CreateEntry("MinIntensity", 1f, description: "Hard floor for brightness.");
-            _maxIntensity = _cat.CreateEntry("MaxIntensity", 20f, description: "Hard ceiling for brightness (prevents runaway 'hold the key and go blinding' brightness).");
+            _defaultIntensity = _cat.CreateEntry("DefaultIntensity", 7f, description: "Base beam brightness the flashlight rests at (clamped to Min/Max). Not player-adjustable in-game; mods can drive it via the API.");
+            _minIntensity = _cat.CreateEntry("MinIntensity", 1f, description: "Hard floor for brightness (also clamps mod/API overrides).");
+            _maxIntensity = _cat.CreateEntry("MaxIntensity", 20f, description: "Hard ceiling for brightness (also clamps mod/API overrides, so nothing can blind the screen).");
             _defaultFocus = _cat.CreateEntry("DefaultFocus", 0.5f,
                 description: "Starting focus/Pegel 0..1. 1 = wide short-range flood, 0 = narrow long-range throw, 0.5 = a balanced ~mid beam.");
             _focusSensitivity = _cat.CreateEntry("FocusSensitivity", 0.08f, description: "Focus change per notch at SLOW/precise scroll speed (the fine-adjustment floor step).");

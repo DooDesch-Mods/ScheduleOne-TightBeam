@@ -177,11 +177,6 @@ namespace TightBeam.Lighting
         public void SetOn(bool on) { if (on == _isOn) return; _isOn = on; try { Toggled?.Invoke(on); } catch { } }
         public void Toggle() => SetOn(!_isOn);
 
-        public void NudgeIntensity(float delta)
-        {
-            _intensity = Mathf.Clamp(_intensity + delta, TightBeamPreferences.MinIntensity, TightBeamPreferences.MaxIntensity);
-        }
-
         private void MoveFocusTarget(float delta) { _focusTarget = Mathf.Clamp01(_focusTarget + delta); _manualRange = null; _manualAngle = null; }
         private void SnapFocusTarget(float value) { _focusTarget = Mathf.Clamp01(value); _manualRange = null; _manualAngle = null; }
 

@@ -51,9 +51,6 @@ namespace TightBeam
             if (Input.GetKeyDown(TightBeamPreferences.ToggleKey)) c.Toggle();
             if (!c.IsOn) return;
 
-            if (Input.GetKeyDown(TightBeamPreferences.IntensityUpKey)) c.NudgeIntensity(1f);
-            else if (Input.GetKeyDown(TightBeamPreferences.IntensityDownKey)) c.NudgeIntensity(-1f);
-
             // ALT + mouse wheel -> focus / Pegel. Call the controller EVERY frame while the modifier is held (even on
             // zero-scroll frames, so the scroll-speed estimate can decay); reset it when released. Same GameInput
             // source as the hotbar-suppression guard, so the two stay frame-perfectly in sync.
