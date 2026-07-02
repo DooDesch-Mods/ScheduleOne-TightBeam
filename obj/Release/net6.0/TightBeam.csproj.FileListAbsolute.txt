@@ -1,0 +1,12 @@
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.csproj.AssemblyReference.cache
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.GeneratedMSBuildEditorConfig.editorconfig
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.AssemblyInfoInputs.cache
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.AssemblyInfo.cs
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.csproj.CoreCompileInputs.cache
+f:\Projects\Mods\Schedule1\TightBeam\bin\Release\net6.0\TightBeam.deps.json
+f:\Projects\Mods\Schedule1\TightBeam\bin\Release\net6.0\TightBeam.dll
+f:\Projects\Mods\Schedule1\TightBeam\bin\Release\net6.0\TightBeam.pdb
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.dll
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\refint\TightBeam.dll
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\TightBeam.pdb
+f:\Projects\Mods\Schedule1\TightBeam\obj\Release\net6.0\ref\TightBeam.dll
