@@ -89,8 +89,8 @@ no-op when TightBeam is not installed, so you can ship it with no hard dependenc
 **Full reference: the [TightBeam Wiki](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki)** - see the
 [Modder API](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/Modder-API) page.
 
-Drop [`TightBeam.Api/TightBeam.cs`](TightBeam.Api/TightBeam.cs) into your project (or reference
-`TightBeam.Api.dll`) and call it:
+Copy the [Beam shim](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/The-Beam-Shim) (`TightBeam.cs`)
+into your project (or reference `TightBeam.Api.dll`) and call it:
 
 ```csharp
 using TightBeam.Api;
