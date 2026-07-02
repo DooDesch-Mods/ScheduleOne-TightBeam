@@ -1,5 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Optional Snitch profiler in Debug builds (no-op when the Snitch host is absent; the host also auto-forwards
+       the panel into the Hotline overlay, so no direct Hotline dependency is needed). Exists-guarded so CI (where
+       Workspace is checked out to ./Workspace, not ../Workspace) simply skips it, and Release compiles ZERO Snitch
+       types. -->
+  <Import Project="$(MSBuildThisFileDirectory)../Workspace/build/Snitch.props" Condition="Exists('$(MSBuildThisFileDirectory)../Workspace/build/Snitch.props')" />
+
   <!-- CI checks out the shared Workspace repo as a SUBFOLDER, so the SDK's default **/*.cs glob would sweep it in.
        No-op locally where Workspace is a sibling. -->
   <ItemGroup>

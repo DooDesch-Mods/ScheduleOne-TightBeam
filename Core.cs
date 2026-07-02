@@ -3,6 +3,9 @@ using TightBeam.Bridge;
 using TightBeam.Config;
 using TightBeam.Lighting;
 using UnityEngine;
+#if SNITCH
+using Snitch.Api;
+#endif
 
 [assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "1.0.0", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
@@ -66,9 +69,18 @@ namespace TightBeam
             if (!TightBeamPreferences.Enabled) return;
             var c = FlashlightController.Instance;
             if (!_inMain) { c.DisableRig(); return; }
+#if SNITCH
+            using (Profiler.Sample("TightBeam.Frame"))
+            {
+                c.EnsureRig();
+                c.Follow();
+                c.Tick(Time.deltaTime);
+            }
+#else
             c.EnsureRig();
             c.Follow();
             c.Tick(Time.deltaTime);
+#endif
         }
     }
 }

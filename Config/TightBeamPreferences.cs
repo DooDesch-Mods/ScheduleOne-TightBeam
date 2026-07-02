@@ -35,7 +35,7 @@ namespace TightBeam.Config
         private static MelonPreferences_Entry<string> _colorHex;
         private static MelonPreferences_Entry<bool> _castShadows;
 
-        public static bool Enabled => _enabled.Value;
+        public static bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
         public static KeyCode FocusModifierKey => ParseKey(_focusModifierKey.Value, KeyCode.LeftAlt);
 
         public static float DefaultIntensity => Mathf.Clamp(_defaultIntensity.Value, MinIntensity, MaxIntensity);
