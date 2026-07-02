@@ -8,7 +8,7 @@ All notable changes to TightBeam are documented here. This project adheres to
 Initial release.
 
 ### Added
-- A believable, limited-range handheld flashlight: one spotlight that follows the camera with a small
+- A proper, limited-range handheld flashlight: one spotlight that follows the camera with a small
   hand-held offset and survives scene loads.
 - **Focus control on ALT + mouse wheel** - a single axis from a wide near-flood to a tight far-throw,
   driving both range and cone angle. Velocity-sensitive: slow scrolling makes fine steps, a fast flick

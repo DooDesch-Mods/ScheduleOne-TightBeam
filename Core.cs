@@ -10,7 +10,7 @@ using UnityEngine;
 namespace TightBeam
 {
     /// <summary>
-    /// TightBeam entry point. A believable limited-range handheld flashlight with a cross-mod control API. Player
+    /// TightBeam entry point. A limited-range handheld flashlight with a cross-mod control API. Player
     /// controls: toggle key (default F), '['/']' brightness, and ALT + mouse wheel for FOCUS/Pegel (wide near flood
     /// &lt;-&gt; narrow far throw). No Harmony, no game types - just a camera-following Spot Light.
     /// </summary>

@@ -7,7 +7,7 @@
   </ItemGroup>
 
   <!--
-    TightBeam - a believable, limited-range handheld flashlight for Schedule I (MelonLoader, IL2CPP), with a public
+    TightBeam - a limited-range handheld flashlight for Schedule I (MelonLoader, IL2CPP), with a public
     cross-mod control API (TightBeam.Api / the `Beam` class) so other mods can drive it: on/off, intensity, range,
     colour, plus dynamic Blink/Flicker/Pulse and scoped overrides. A tight, bounded cone instead of a map-wide
     floodlight.

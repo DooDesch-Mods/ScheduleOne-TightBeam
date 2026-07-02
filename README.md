@@ -1,8 +1,8 @@
-# TightBeam - A Flashlight That Behaves
+# TightBeam - A Proper Flashlight
 
 > 🛟 **Need help or found a bug?** Get support at [support.doodesch.de](https://support.doodesch.de).
 
-> A believable, limited-range handheld flashlight for Schedule I. Toggle it with a key, then hold
+> A proper handheld flashlight for Schedule I. Toggle it with a key, then hold
 > **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
 > map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
 

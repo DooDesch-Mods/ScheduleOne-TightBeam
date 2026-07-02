@@ -179,7 +179,7 @@ jobs:
           repo: thunderstore.io
           namespace: DooDesch
           name: TightBeam
-          description: A believable, limited-range handheld flashlight - dial the beam from a wide near-flood to a tight far-throw.
+          description: A proper handheld flashlight - dial the beam from a wide near-flood to a tight far-throw.
           version: ${{ needs.build.outputs.version }}
           path: thunderstore-package
           deps: |
