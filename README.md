@@ -1,6 +1,6 @@
 # TightBeam - A Proper Flashlight
 
-> 🛟 **Need help or found a bug?** Get support at [support.doodesch.de](https://support.doodesch.de).
+> 🛟 **Need help or found a bug?** Get support at [support.doodesch.de/tightbeam](https://support.doodesch.de/tightbeam).
 
 > A proper handheld flashlight for Schedule I. It upgrades the game's own flashlight - toggle it with your
 > flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
