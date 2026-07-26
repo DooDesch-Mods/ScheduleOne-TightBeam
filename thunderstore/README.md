@@ -6,7 +6,7 @@
 > hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
 > map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
 
@@ -22,8 +22,13 @@
   reads against the game's warm lighting.
 - **In perfect sync with the game.** It drives off the game's own flashlight state, so on/off never falls
   out of step - your flashlight key toggles it, and it swaps the vanilla point light for its own clean cone.
-- **Light-touch and update-resilient.** A spotlight that follows your camera - no gameplay rewired, no
-  networking touched; a tiny guard keeps ALT+scroll from cycling your hotbar.
+- **Works in co-op.** Everyone else's flashlight becomes a TightBeam cone too, aimed where they are
+  looking rather than sitting on their chest, with their own focus, brightness and colour. Players who
+  join late see the lights that are already on - the base game never tells them about those. Capped,
+  distance-culled and shadow-free by default, and players without the mod still get a cone instead of
+  the vanilla dot.
+- **Light-touch and update-resilient.** A spotlight that follows your camera - no gameplay rewired and
+  nothing written to the game's own state; a tiny guard keeps ALT+scroll from cycling your hotbar.
 - **Cross-mod API.** Other mods can drive the beam (dim, flicker, blink, override) through a drop-in
   shim that is a safe no-op when TightBeam is absent. Full reference on the
   [Modder API wiki](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/Modder-API).

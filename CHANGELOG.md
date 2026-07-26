@@ -3,6 +3,40 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-07-26
+
+Co-op.
+
+### Added
+- **Other players' flashlights are TightBeam cones too.** Aimed where they are actually looking, pitch
+  included, instead of the small vanilla point light. Their own focus, brightness and colour come across
+  live, so a beam looks the same from every seat.
+- **Late joiners see the lights that are already on.** The base game never tells a joining player about a
+  flashlight that was switched on before they arrived; TightBeam carries that state itself.
+- Players without the mod still get a cone, drawn from your own default settings. Turn that off with
+  `RemoteBeamsForUnmoddedPlayers` if you would rather see their vanilla light.
+- Blink, flicker and pulse carry across, so a mod that dims or flickers your beam now reads correctly to
+  everyone else instead of only to you.
+- Performance controls for a full lobby: `MaxRemoteBeams` (default 4), `RemoteBeamMaxDistance`,
+  frustum culling, and `RemoteShadowNearest` (default 0 - only your own beam casts shadows). Sized for
+  lobbies well past the stock four players, since other mods raise that cap a long way.
+- Sharing rides a part of the Steam lobby the game itself never reads or writes, so a player without
+  TightBeam has nothing running on their machine because of you. Needs a Steam lobby: on a direct connect
+  or a dedicated server you still get correctly aimed cones, just with your own default settings.
+- **Modder API v2**: read the other players' beams - who has one, its shape and colour, where it starts
+  and which way it points. Deliberately read-only: every player owns their own beam, so you drive the
+  local one as before and it replicates by itself.
+
+### Changed
+- The transient effects now run from one shared implementation, so a flicker you see on someone else's
+  beam has the same strength and rate as the one they see. It runs from each machine's own clock, so the
+  noise is offset in phase rather than sample-for-sample identical - which is not something an eye can
+  pick up on a flickering light.
+
+### Notes
+- Existing mods built against the v1 API keep working unchanged; the API only gained members.
+- Single-player behaviour is unchanged - nothing is sent and no extra work runs.
+
 ## [1.0.0] - 2026-07-02
 
 Initial release.

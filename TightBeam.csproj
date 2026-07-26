@@ -23,8 +23,10 @@
     floodlight.
 
     IL2CPP only (net6.0). Beyond stock UnityEngine types (Camera/Light/GameObject) it reads the game's own
-    flashlight state (Phone) and has a single Harmony patch on PlayerInventory (the hotbar ALT+scroll guard);
-    no S1API, no FishNet, no networking.
+    flashlight state (Phone) and has a single Harmony patch on PlayerInventory (the hotbar ALT+scroll guard).
+    No S1API. In co-op it draws other players' flashlights as cones from state the game already replicates
+    (Player.MimicCamera and the third-person flashlight's active flag); FishNet is a compile-time reference only,
+    because Player derives from NetworkBehaviour.
   -->
 
   <PropertyGroup>
@@ -36,9 +38,9 @@
     <RootNamespace>TightBeam</RootNamespace>
     <AssemblyName>TightBeam</AssemblyName>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <NoWarn>$(NoWarn);MSB3277;MSB3245</NoWarn>
     <DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
 
@@ -61,9 +63,23 @@
       <HintPath>$(MelonLoaderPath)/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- Game assembly: only to Harmony-patch the hotbar mouse-wheel slot switch so ALT+scroll owns the beam focus. -->
+    <!-- Game assembly: the hotbar mouse-wheel guard, the local flashlight state, and the co-op read of other
+         players (aim, flashlight on/off, vanilla lights to darken). -->
     <Reference Include="Assembly-CSharp">
       <HintPath>$(GameManagedPath)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- FishNet: compile-time only, because Player derives from NetworkBehaviour. TightBeam calls no FishNet API.
+         Ships with the game, so it is not a new shipped dependency. -->
+    <Reference Include="Il2CppFishNet.Runtime">
+      <HintPath>$(GameManagedPath)/Il2CppFishNet.Runtime.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Steamworks.NET (IL2CPP): the co-op beam sync writes each player's own lobby member-data key and reads the
+         others'. The game uses this API nowhere, so a player without TightBeam runs no code because of us.
+         Ships with the game, so it is not a new shipped dependency. -->
+    <Reference Include="Il2Cppcom.rlabrecque.steamworks.net">
+      <HintPath>$(GameManagedPath)/Il2Cppcom.rlabrecque.steamworks.net.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib">

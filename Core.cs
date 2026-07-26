@@ -2,12 +2,13 @@ using MelonLoader;
 using TightBeam.Bridge;
 using TightBeam.Config;
 using TightBeam.Lighting;
+using TightBeam.Net;
 using UnityEngine;
 #if SNITCH
 using Snitch.Api;
 #endif
 
-[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "1.0.0", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
+[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "2.0.0", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
 
 namespace TightBeam
@@ -22,6 +23,7 @@ namespace TightBeam
         public static MelonLogger.Instance Log { get; private set; }
         private bool _inMain;
         private bool _patched;
+        private bool _wasEnabled = true;
 
         public override void OnInitializeMelon()
         {
@@ -29,6 +31,7 @@ namespace TightBeam
             TightBeamPreferences.Initialize();
             FlashlightController.Instance.InitFromPrefs();
             BridgeHost.Install(); // expose the reflection API to consumer mods immediately (load-order-proof)
+            BeamPostBuilder.Start(); // subscribe to the controller's effect events before anything can fire
             Log.Msg($"TightBeam initialized. Enabled={TightBeamPreferences.Enabled}. On/off follows the game flashlight; " +
                     $"hold {TightBeamPreferences.FocusModifierKey} + mouse wheel = focus/Pegel.");
         }
@@ -44,6 +47,10 @@ namespace TightBeam
                 _patched = true;
                 Log.Msg("TightBeam: hotbar ALT+scroll guard applied.");
             }
+            // A scene change ends the session: take our notice down (Tick keeps retrying until it is gone) and
+            // clear a breaker tripped in the old one so it cannot follow the player into the next.
+            BeamBoard.EndSession();
+            RemoteBeams.NewSession();
         }
 
         public override void OnUpdate()
@@ -66,9 +73,21 @@ namespace TightBeam
 
         public override void OnLateUpdate()
         {
-            if (!TightBeamPreferences.Enabled) return;
             var c = FlashlightController.Instance;
-            if (!_inMain) { c.DisableRig(); return; }
+            if (!TightBeamPreferences.Enabled)
+            {
+                // Flipping the master switch off mid-session has to hand everything back: our own rig, and every
+                // remote player's vanilla flashlight light that we darkened on their behalf.
+                if (_wasEnabled) { _wasEnabled = false; c.DisableRig(); RemoteBeams.DisableAll(); }
+                // Still pump the board while switched off: a disabled mod has to take its own notice down, or the
+                // other players keep drawing a beam nobody is maintaining any more.
+                BeamBoard.Tick(false);
+                return;
+            }
+            _wasEnabled = true;
+            // Outside gameplay the board still gets pumped, so a notice left over from the last session drains
+            // instead of sitting in a lobby that outlived the scene.
+            if (!_inMain) { c.DisableRig(); RemoteBeams.DisableAll(); BeamBoard.Tick(false); return; }
 #if SNITCH
             using (Profiler.Sample("TightBeam.Frame"))
             {
@@ -76,10 +95,19 @@ namespace TightBeam
                 c.Follow();
                 c.Tick(Time.deltaTime);
             }
+            using (Profiler.Sample("TightBeam.Remote"))
+            {
+                BeamBoard.Tick(true);
+                RemoteBeams.Tick(Time.deltaTime);
+            }
 #else
             c.EnsureRig();
             c.Follow();
             c.Tick(Time.deltaTime);
+            // Post our own shape (only when it actually changed), then draw everyone else's. Remote beams run
+            // even while our own is off - we are drawing their flashlight, not ours.
+            BeamBoard.Tick(true);
+            RemoteBeams.Tick(Time.deltaTime);
 #endif
         }
     }

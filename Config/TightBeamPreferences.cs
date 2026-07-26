@@ -35,6 +35,15 @@ namespace TightBeam.Config
         private static MelonPreferences_Entry<string> _colorHex;
         private static MelonPreferences_Entry<bool> _castShadows;
 
+        private static MelonPreferences_Entry<bool> _remoteBeams;
+        private static MelonPreferences_Entry<int> _maxRemoteBeams;
+        private static MelonPreferences_Entry<float> _remoteBeamMaxDistance;
+        private static MelonPreferences_Entry<int> _remoteShadowNearest;
+        private static MelonPreferences_Entry<float> _remoteSmoothingTau;
+        private static MelonPreferences_Entry<bool> _suppressRemoteVanillaLights;
+        private static MelonPreferences_Entry<bool> _remoteBeamsForUnmoddedPlayers;
+        private static MelonPreferences_Entry<bool> _syncMyBeam;
+
         public static bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
         public static KeyCode FocusModifierKey => ParseKey(_focusModifierKey.Value, KeyCode.LeftAlt);
 
@@ -64,6 +73,22 @@ namespace TightBeam.Config
         public static Color Color => ParseColor(_colorHex.Value, new Color(0.90f, 0.95f, 1.00f));
         public static bool CastShadows => _castShadows.Value;
 
+        // ----- co-op: other players' beams -------------------------------------------------------------------------
+
+        public static bool RemoteBeams => _remoteBeams.Value;
+        /// <summary>Hard ceiling on simultaneous remote spot lights. 0 disables remote beams entirely.</summary>
+        public static int MaxRemoteBeams => Mathf.Clamp(_maxRemoteBeams.Value, 0, 16);
+        public static float RemoteBeamMaxDistance => Mathf.Clamp(_remoteBeamMaxDistance.Value, 10f, 250f);
+        /// <summary>How many of the nearest remote beams may cast shadows. Kept at 0 by default: a full lobby of
+        /// shadow-casting spot lights is the one thing here that can genuinely cost framerate.</summary>
+        public static int RemoteShadowNearest => Mathf.Clamp(_remoteShadowNearest.Value, 0, 4);
+        public static float RemoteSmoothingTau => Mathf.Clamp(_remoteSmoothingTau.Value, 0.02f, 0.30f);
+        public static bool SuppressRemoteVanillaLights => _suppressRemoteVanillaLights.Value;
+        /// <summary>Whether a player who is not running TightBeam still gets a cone, drawn from local defaults.</summary>
+        public static bool RemoteBeamsForUnmoddedPlayers => _remoteBeamsForUnmoddedPlayers.Value;
+
+        public static bool SyncMyBeam => _syncMyBeam.Value;
+
         public static void Initialize()
         {
             _cat = MelonPreferences.CreateCategory("TightBeam");
@@ -91,6 +116,24 @@ namespace TightBeam.Config
             _angleNarrow = _cat.CreateEntry("AngleNarrow", 16f, description: "Cone angle (deg) at full NARROW focus.");
             _colorHex = _cat.CreateEntry("ColorHex", "#E6F2FF", description: "Beam colour (hex). Cool white by default so it reads against warm/sickly environments.");
             _castShadows = _cat.CreateEntry("CastShadows", true, description: "Cast soft shadows so the beam is blocked by walls (turn off on low-end machines).");
+
+            _remoteBeams = _cat.CreateEntry("RemoteBeams", true,
+                description: "In co-op, show other players' flashlights as proper TightBeam cones instead of the game's small point light.");
+            _maxRemoteBeams = _cat.CreateEntry("MaxRemoteBeams", 4,
+                description: "Most other players' beams drawn at once (nearest first). 0 turns remote beams off.");
+            _remoteBeamMaxDistance = _cat.CreateEntry("RemoteBeamMaxDistance", 70f,
+                description: "Metres beyond which another player's beam is not drawn.");
+            _remoteShadowNearest = _cat.CreateEntry("RemoteShadowNearest", 0,
+                description: "How many of the nearest remote beams may cast shadows. 0 = none, which keeps a full lobby smooth.");
+            _remoteSmoothingTau = _cat.CreateEntry("RemoteSmoothingTau", 0.08f,
+                description: "Smoothing on another player's beam aim. The game replicates their camera about 10x/sec, so without this the cone steps visibly.");
+            _suppressRemoteVanillaLights = _cat.CreateEntry("SuppressRemoteVanillaLights", true,
+                description: "Turn off another player's vanilla flashlight lights while their TightBeam cone is shown, so you never see both at once.");
+            _remoteBeamsForUnmoddedPlayers = _cat.CreateEntry("RemoteBeamsForUnmoddedPlayers", true,
+                description: "Also draw a cone for players who do not have TightBeam, using your own default settings. Turn off to leave their vanilla flashlight alone.");
+
+            _syncMyBeam = _cat.CreateEntry("SyncMyBeam", true,
+                description: "Share your beam's shape, colour and effects with the other players, so they see your flashlight the way you do.");
         }
 
         private static KeyCode ParseKey(string s, KeyCode fallback)

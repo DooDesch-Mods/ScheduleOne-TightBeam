@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TightBeam.Lighting;
+using TightBeam.Net;
 using UnityEngine;
 
 namespace TightBeam.Bridge
@@ -50,6 +51,16 @@ namespace TightBeam.Bridge
 
             FlashlightBridge.RegisterToggledListener = cb => { if (cb != null) _toggleListeners.Add(cb); };
             c.Toggled += on => { for (int i = 0; i < _toggleListeners.Count; i++) { try { _toggleListeners[i](on); } catch { } } };
+
+            // v2: read-only view of the other players' beams.
+            FlashlightBridge.IsMultiplayer = () => RemoteBeams.InMultiplayer();
+            FlashlightBridge.GetLocalSteamId = () => PlayerIdentity.LocalSteamId();
+            FlashlightBridge.GetRemoteBeamIds = () => RemoteBeams.RemoteIds();
+            FlashlightBridge.RemoteHasTightBeam = id => RemoteBeams.HasSyncedBeam(id);
+            FlashlightBridge.GetRemoteBeam = id => RemoteBeams.BeamOf(id);
+            FlashlightBridge.GetRemoteBeamPose = id => RemoteBeams.PoseOf(id);
+            FlashlightBridge.IsRemoteBeamRendered = id => RemoteBeams.IsRendered(id);
+            FlashlightBridge.RegisterRemoteToggledListener = cb => RemoteBeams.AddToggledListener(cb);
         }
     }
 }

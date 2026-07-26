@@ -10,7 +10,7 @@ namespace TightBeam.Bridge
     /// </summary>
     public static class FlashlightBridge
     {
-        public const int AbiVersion = 1;
+        public const int AbiVersion = 2;
 
         // state getters
         public static Func<bool> IsOn;
@@ -52,5 +52,20 @@ namespace TightBeam.Bridge
 
         // push notification
         public static Action<Action<bool>> RegisterToggledListener;
+
+        // ----- v2: OTHER players' beams --------------------------------------------------------------------------
+        // Read-only on purpose. Every player is the sole author of their own beam, so a consumer drives its LOCAL
+        // beam and the state replicates by itself - which is also why a mod-driven blackout now reads correctly to
+        // everyone else. Remote setters would introduce an authority question that this design does not have.
+        // Players are named by SteamID64, the same value the game replicates as Player.PlayerCode.
+
+        public static Func<bool> IsMultiplayer;                 // in a session with at least one other player
+        public static Func<ulong> GetLocalSteamId;              // 0 when unknown or offline
+        public static Func<ulong[]> GetRemoteBeamIds;           // never null
+        public static Func<ulong, bool> RemoteHasTightBeam;     // false = anything below is a local default
+        public static Func<ulong, float[]> GetRemoteBeam;       // [on, intensity, range, spotAngle, r, g, b, a] or null
+        public static Func<ulong, float[]> GetRemoteBeamPose;   // [px, py, pz, fwdX, fwdY, fwdZ] or null
+        public static Func<ulong, bool> IsRemoteBeamRendered;   // lit but culled reports false here, true in GetRemoteBeam
+        public static Action<Action<ulong, bool>> RegisterRemoteToggledListener;
     }
 }

@@ -35,17 +35,28 @@ namespace TightBeam.Lighting
         private readonly List<Ov> _overrides = new List<Ov>();
         private int _nextToken = 1;
 
-        // Transient effects
-        private enum FxMode { None, Flicker, Pulse }
-        private FxMode _fx = FxMode.None;
-        private float _fxStrength, _fxFreq, _fxAmp, _fxPeriod, _fxEnd, _fxSeed;
-        private int _blinkLeft;        // remaining half-cycles
-        private float _blinkInterval, _blinkNext; private bool _blinkDark;
+        // Transient effects (one shared implementation, so a replicated effect is the same effect at the same
+        // strength and rate as the original - see BeamFx for what phase is and is not guaranteed)
+        private BeamFx _fx;
 
         public event Action<bool> Toggled;
 
+        /// <summary>Raised when a transient effect starts or stops: (code, p1, p2, p3), where code is
+        /// F flicker, f stop-flicker, P pulse, p stop-pulse, B blink. Lets co-op sync forward an effect without the
+        /// controller knowing anything about networking, the same way <see cref="Toggled"/> feeds the mod API.</summary>
+        public event Action<char, float, float, float> FxRaised;
+
         public bool IsOn => _isOn;
         public bool HasLight => _light != null;
+
+        // The composed beam BEFORE the transient-effect multiplier. This is what co-op replicates: effects are sent
+        // once as an event and re-run locally on each machine, so streaming their per-frame value would fight them.
+        private float _wireIntensity, _wireRange, _wireAngle;
+        private Color _wireColor = Color.white;
+        public float WireIntensity => _wireIntensity;
+        public float WireRange => _wireRange;
+        public float WireSpotAngle => _wireAngle;
+        public Color WireColor => _wireColor;
 
         public void InitFromPrefs()
         {
@@ -125,8 +136,11 @@ namespace TightBeam.Lighting
                 if (o.C.HasValue && col == baseCol) col = o.C.Value;
             }
 
+            // Snapshot the composed beam before effects modulate it - that is the shape co-op shares.
+            _wireIntensity = intensity; _wireRange = range; _wireAngle = angle; _wireColor = col;
+
             // TRANSIENT EFFECTS: a final multiplicative modulation on intensity (never toggles Light.enabled).
-            intensity *= EffectMultiplier(dt);
+            intensity *= _fx.Multiplier();
 
             _light.intensity = Mathf.Max(0f, intensity);
             _light.range = Mathf.Clamp(range, 2f, 60f);
@@ -139,32 +153,6 @@ namespace TightBeam.Lighting
             // flashlight lights (equipped item + phone lamp) and show our cone instead - and they stay dark through a
             // mod blackout too. Restored the instant the flashlight goes off.
             VanillaLightSync.Apply(_isOn);
-        }
-
-        private float EffectMultiplier(float dt)
-        {
-            float mul = 1f;
-            if (_fx == FxMode.Flicker)
-            {
-                if (Time.time >= _fxEnd) _fx = FxMode.None;
-                else
-                {
-                    float n = Mathf.PerlinNoise(Time.time * _fxFreq + _fxSeed, _fxSeed * 0.37f); // 0..1, smooth
-                    mul *= Mathf.Lerp(1f - _fxStrength, 1f, n);
-                }
-            }
-            else if (_fx == FxMode.Pulse)
-            {
-                if (Time.time >= _fxEnd) _fx = FxMode.None;
-                else mul *= 1f + _fxAmp * Mathf.Sin(Time.time * (2f * Mathf.PI / Mathf.Max(0.05f, _fxPeriod)) + _fxSeed);
-            }
-
-            if (_blinkLeft > 0)
-            {
-                if (Time.time >= _blinkNext) { _blinkDark = !_blinkDark; _blinkLeft--; _blinkNext = Time.time + _blinkInterval; }
-                if (_blinkDark) mul *= 0.04f;
-            }
-            return Mathf.Max(0f, mul);
         }
 
         private void PruneOverrides()
@@ -298,22 +286,32 @@ namespace TightBeam.Lighting
 
         public void Flicker(float strength01, float durationSeconds, float freqHz)
         {
-            _fx = FxMode.Flicker; _fxStrength = Mathf.Clamp01(strength01); _fxFreq = Mathf.Max(0.1f, freqHz);
-            _fxEnd = Time.time + Mathf.Max(0.05f, durationSeconds); _fxSeed = UnityEngine.Random.value * 100f;
+            _fx.Flicker(strength01, durationSeconds, freqHz, UnityEngine.Random.value * 100f);
+            RaiseFx('F', Mathf.Clamp01(strength01), durationSeconds, Mathf.Max(0.1f, freqHz));
         }
         public void Pulse(float amp01, float periodSeconds, float durationSeconds)
         {
-            _fx = FxMode.Pulse; _fxAmp = Mathf.Clamp01(amp01); _fxPeriod = Mathf.Max(0.1f, periodSeconds);
-            _fxEnd = float.IsInfinity(durationSeconds) ? float.MaxValue : Time.time + Mathf.Max(0.05f, durationSeconds);
-            _fxSeed = UnityEngine.Random.value * 6.28f;
+            _fx.Pulse(amp01, periodSeconds, durationSeconds, UnityEngine.Random.value * 6.28f);
+            RaiseFx('P', Mathf.Clamp01(amp01), Mathf.Max(0.1f, periodSeconds), durationSeconds);
         }
-        public void StopFlicker() { if (_fx == FxMode.Flicker) _fx = FxMode.None; }
-        public void StopPulse() { if (_fx == FxMode.Pulse) _fx = FxMode.None; }
+        public void StopFlicker() { if (_fx.StopFlicker()) RaiseFx('f', 0f, 0f, 0f); }
+        public void StopPulse() { if (_fx.StopPulse()) RaiseFx('p', 0f, 0f, 0f); }
 
         public void Blink(int times, float intervalSeconds)
         {
             if (!_isOn || times <= 0) return;
-            _blinkLeft = times * 2; _blinkInterval = Mathf.Max(0.02f, intervalSeconds); _blinkNext = Time.time; _blinkDark = false;
+            _fx.Blink(times, intervalSeconds);
+            RaiseFx('B', times, Mathf.Max(0.02f, intervalSeconds), 0f);
         }
+
+        // Co-op forwards effects as single events, so the seed has to travel with them - otherwise every machine
+        // would roll its own noise and the same flicker would look different to each player.
+        private void RaiseFx(char code, float a, float b, float c)
+        {
+            try { FxRaised?.Invoke(code, a, b, c); } catch { }
+        }
+
+        /// <summary>Seed of the effect that is running, for a listener that needs to forward it.</summary>
+        public float CurrentFxSeed => _fx.Seed;
     }
 }
