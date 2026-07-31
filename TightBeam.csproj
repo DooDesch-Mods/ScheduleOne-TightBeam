@@ -14,6 +14,9 @@
        No-op locally where Workspace is a sibling. -->
   <ItemGroup>
     <Compile Remove="Workspace/**/*.cs" />
+    <!-- The modder shim is its own assembly and lives in this repo only so modders can get it.
+         Compiling it into the host too would give the mod a second copy of the client that binds to itself. -->
+    <Compile Remove="TightBeam.Api/**/*.cs" />
   </ItemGroup>
 
   <!--
