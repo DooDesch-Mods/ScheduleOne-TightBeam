@@ -171,7 +171,7 @@ namespace TightBeam.Lighting
         /// <summary>Decide who gets a rig: lit, in range, on screen, nearest first, capped.</summary>
         private static void Select(Camera cam, int cap)
         {
-            GeometryUtility.CalculateFrustumPlanes(cam, _frustum);
+            UnityEngine.GeometryUtility.CalculateFrustumPlanes(cam, _frustum);
             Vector3 eye = cam.transform.position;
             float maxDist = TightBeamPreferences.RemoteBeamMaxDistance;
             float maxDist2 = maxDist * maxDist;

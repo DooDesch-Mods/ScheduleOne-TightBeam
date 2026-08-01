@@ -136,7 +136,7 @@ namespace TightBeam.Net
                 try
                 {
                     var l = PersistentSingleton<Lobby>.Instance;
-                    if (l != null) { _onLobbyChange = new Action(OnLobbyChange); l.onLobbyChange += _onLobbyChange; }
+                    if (l != null) { _onLobbyChange = new Action(OnLobbyChange); l.OnLobbyChange += _onLobbyChange; }
                 }
                 catch (Exception e) { Core.Log?.Warning("[board] lobby-change hook failed: " + e.Message); }
             }
