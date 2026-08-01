@@ -74,7 +74,7 @@ namespace TightBeam.Lighting
             {
                 if (PlayerSingleton<PlayerInventory>.InstanceExists)
                 {
-                    var eq = PlayerSingleton<PlayerInventory>.Instance.equippable;
+                    var eq = PlayerSingleton<PlayerInventory>.Instance.Equippable;
                     if (eq != null && eq.TryCast<Il2CppScheduleOne.Tools.Flashlight>() != null)
                         DisableUnder(eq.gameObject);
                 }
