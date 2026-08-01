@@ -3,6 +3,11 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] - 2026-08-01
+
+### Fixed
+- Works on Schedule I 0.4.6f11. Stay on 2.0.0 if you are still playing 0.4.5f2.
+
 ## [2.0.0] - 2026-07-26
 
 Co-op.
