@@ -98,7 +98,7 @@ namespace TightBeam.Lighting
         /// <summary>Snap the light to the camera (position + a small chest/hand-held offset + aim). Called each frame.</summary>
         public void Follow()
         {
-            if (_light == null) return;
+            if (_light == null || !_isOn) return;   // an off light does not need to be carried around
             if (_cam == null) { _cam = Camera.main; if (_cam == null) return; }
             var t = _cam.transform;
             _go.transform.position = t.position + t.forward * 0.25f + t.right * 0.15f - t.up * 0.2f;
@@ -110,6 +110,21 @@ namespace TightBeam.Lighting
         public void Tick(float dt)
         {
             if (_light == null) return;
+
+            // Beam off: there is nothing to compose. Everything below - the focus easing, the override walk, five
+            // writes into the Light and the vanilla-light sync - would run every frame for a light nobody can see,
+            // which is most frames for most players. Do the switch-off exactly once (Light.enabled doubles as the
+            // "did we already" flag) and then stop. The focus and the override list simply hold their values until
+            // the beam comes back, which is what they should do anyway.
+            if (!_isOn)
+            {
+                if (_light.enabled)
+                {
+                    _light.enabled = false;
+                    VanillaLightSync.Apply(false);   // hand the game's own flashlight lights back
+                }
+                return;
+            }
 
             // Ease the DISPLAYED focus toward the target (frame-rate-independent low-pass, cannot overshoot). The
             // epsilon-snap stops rewriting range/angle by an imperceptible residue forever once it has settled.

@@ -8,7 +8,7 @@ using UnityEngine;
 using Snitch.Api;
 #endif
 
-[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "2.1.0", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
+[assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", "2.1.1", "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
 
 namespace TightBeam

@@ -3,6 +3,13 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.1.1] - 2026-08-04
+
+### Fixed
+
+- TightBeam costs almost nothing while your flashlight is off. It was recomposing the beam and carrying
+  the light around behind the camera on every frame, for a light nobody could see.
+
 ## [2.1.0] - 2026-08-01
 
 ### Fixed
