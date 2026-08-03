@@ -6,7 +6,7 @@
 > flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
 > far-reaching throw. No map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
 
-![Version](https://img.shields.io/badge/version-2.1.0-blue)
+![Version](https://img.shields.io/badge/version-2.1.1-blue)
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
 ![Status](https://img.shields.io/badge/status-working-brightgreen)
