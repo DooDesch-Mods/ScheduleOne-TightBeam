@@ -19,6 +19,12 @@
     <Compile Remove="TightBeam.Api/**/*.cs" />
   </ItemGroup>
 
+  <!-- Generates DooDesch.ModVersion.Current from this project's own version property, so MelonInfo carries the
+       released version and cannot drift out of it. MUST come after the Workspace Remove so CI keeps the file. -->
+  <Import Project="$(MSBuildThisFileDirectory)../Workspace/build/ModVersion.props" Condition="Exists('$(MSBuildThisFileDirectory)../Workspace/build/ModVersion.props')" />
+  <Import Project="$(MSBuildThisFileDirectory)Workspace/build/ModVersion.props" Condition="Exists('$(MSBuildThisFileDirectory)Workspace/build/ModVersion.props')" />
+
+
   <!--
     TightBeam - a limited-range handheld flashlight for Schedule I (MelonLoader, IL2CPP), with a public
     cross-mod control API (TightBeam.Api / the `Beam` class) so other mods can drive it: on/off, intensity, range,
