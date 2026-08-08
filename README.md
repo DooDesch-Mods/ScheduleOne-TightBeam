@@ -92,10 +92,10 @@ TightBeam exposes a small cross-mod control API so your mod can drive the player
 brightness, range, colour, plus Blink/Flicker/Pulse and scoped per-field overrides. Every call is a safe
 no-op when TightBeam is not installed, so you can ship it with no hard dependency.
 
-**Full reference: the [TightBeam Wiki](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki)** - see the
-[Modder API](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/Modder-API) page.
+**Full reference: the [TightBeam Wiki](https://docs.doodesch.de/mods/tightbeam/)** - see the
+[Modder API](https://docs.doodesch.de/mods/tightbeam/guides/modder-api/) page.
 
-Copy the [Beam shim](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/wiki/The-Beam-Shim) (`TightBeam.cs`)
+Copy the [Beam shim](https://docs.doodesch.de/mods/tightbeam/guides/the-beam-shim/) (`TightBeam.cs`)
 into your project (or reference `TightBeam.Api.dll`) and call it:
 
 ```csharp
