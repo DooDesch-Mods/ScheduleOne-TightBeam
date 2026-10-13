@@ -11,6 +11,7 @@
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
 ![Status](https://img.shields.io/badge/status-working-brightgreen)
 [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
+[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn/badge.svg)](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn)
 
 ## Features
 
