@@ -9,6 +9,7 @@
 ![Version](https://img.shields.io/badge/version-2.1.1-blue)
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
+
 [![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn/badge.svg)](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn)
 
 ## Features
