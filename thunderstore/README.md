@@ -56,4 +56,4 @@ under `[TightBeam]`.
 
 ## License
 
-MIT. See the included LICENSE.md.
+DooDesch API License - build on the API, do not copy the code. See [LICENSE.md](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/blob/main/LICENSE.md).
