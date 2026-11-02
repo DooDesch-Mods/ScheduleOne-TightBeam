@@ -3,6 +3,12 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.1.3] - 2026-11-02
+
+### Changed
+
+- Thunderstore and Nexus Mods may now review the mod files: the license names their package review as an exception.
+
 ## [2.1.2] - 2026-11-02
 
 ### Fixed
