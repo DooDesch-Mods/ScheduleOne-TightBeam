@@ -11,7 +11,7 @@
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
 [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
 
-[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_oITnl2MOEjldCeBoiU-T9H2Q/badge.svg)](https://mlvscan.com/attestations/att_oITnl2MOEjldCeBoiU-T9H2Q)
+[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-/badge.svg)](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-)
 
 ![TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/header.jpg)
 
