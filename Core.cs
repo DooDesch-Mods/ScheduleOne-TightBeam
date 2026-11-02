@@ -10,6 +10,9 @@ using Snitch.Api;
 
 [assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", DooDesch.ModVersion.Current, "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
+// The patches go in on the first Main scene (see OnSceneWasInitialized). Without this MelonLoader would also apply
+// them at load, and the second PatchAll would hang every prefix twice.
+[assembly: HarmonyDontPatchAll]
 
 namespace TightBeam
 {
@@ -32,6 +35,10 @@ namespace TightBeam
             FlashlightController.Instance.InitFromPrefs();
             BridgeHost.Install(); // expose the reflection API to consumer mods immediately (load-order-proof)
             BeamPostBuilder.Start(); // subscribe to the controller's effect events before anything can fire
+#if DEBUG
+            // The debug words are answered in a SubmitCommand prefix; this puts them in the game's command list.
+            DevTools.DebugConsole.DeclareForTools();
+#endif
             Log.Msg($"TightBeam initialized. Enabled={TightBeamPreferences.Enabled}. On/off follows the game flashlight; " +
                     $"hold {TightBeamPreferences.FocusModifierKey} + mouse wheel = focus/Pegel.");
         }

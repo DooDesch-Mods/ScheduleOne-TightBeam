@@ -1,3 +1,4 @@
+using System;
 using Il2CppScheduleOne.PlayerScripts;
 using Il2CppSteamworks;
 
@@ -19,7 +20,7 @@ namespace TightBeam.Net
                 string code = p.PlayerCode;
                 if (!string.IsNullOrEmpty(code) && ulong.TryParse(code, out ulong id)) return id;
             }
-            catch { }
+            catch (Exception ex) { Diag.Warn("identity.code", ex); }
             return 0UL;
         }
 
@@ -33,9 +34,9 @@ namespace TightBeam.Net
                 ulong id = SteamUser.GetSteamID().m_SteamID;
                 if (id != 0UL) return id;
             }
-            catch { }
+            catch (Exception ex) { Diag.Warn("identity.steam", ex); }
             try { return SteamIdOf(Player.Local); }
-            catch { return 0UL; }
+            catch (Exception ex) { Diag.Warn("identity.local", ex); return 0UL; }
         }
     }
 }

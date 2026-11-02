@@ -50,7 +50,7 @@ namespace TightBeam.Bridge
             FlashlightBridge.ClrColor = tok => c.ClearOverrideColor(tok);
 
             FlashlightBridge.RegisterToggledListener = cb => { if (cb != null) _toggleListeners.Add(cb); };
-            c.Toggled += on => { for (int i = 0; i < _toggleListeners.Count; i++) { try { _toggleListeners[i](on); } catch { } } };
+            c.Toggled += on => { for (int i = 0; i < _toggleListeners.Count; i++) { try { _toggleListeners[i](on); } catch (Exception ex) { Diag.Error("api.toggled-listener", ex); } } };
 
             // v2: read-only view of the other players' beams.
             FlashlightBridge.IsMultiplayer = () => RemoteBeams.InMultiplayer();

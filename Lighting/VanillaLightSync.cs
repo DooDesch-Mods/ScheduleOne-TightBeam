@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Il2CppScheduleOne.DevUtilities;
 using Il2CppScheduleOne.PlayerScripts;
@@ -111,11 +112,11 @@ namespace TightBeam.Lighting
             _dark = false;
             foreach (var ol in _opt)
             {
-                try { if (ol != null) { ol.Enabled = true; ol.UpdateLightState(); } } catch { }
+                try { if (ol != null) { ol.Enabled = true; ol.UpdateLightState(); } } catch (Exception ex) { Diag.Warn("vanilla.restore-optimized", ex); }
             }
             foreach (var l in _bare)
             {
-                try { if (l != null) l.enabled = true; } catch { }
+                try { if (l != null) l.enabled = true; } catch (Exception ex) { Diag.Warn("vanilla.restore-light", ex); }
             }
             _opt.Clear();
             _bare.Clear();

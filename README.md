@@ -14,6 +14,8 @@
 
 [![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn/badge.svg)](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn)
 
+![TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/header.jpg)
+
 ## Features
 
 - **A beam you can aim and shape.** Hold **ALT + mouse wheel** to slide a single Focus axis: the wide
@@ -49,6 +51,15 @@
 | `ALT` + mouse wheel | Focus: wide near-flood to tight far-throw |
 
 On/off uses your game's own flashlight key; the focus modifier is rebindable in TightBeam's config.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Vanilla vs TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/vanilla-vs-tightbeam.jpg) | ![Wide vs narrow](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-vs-narrow.jpg) |
+| Same wall, same flashlight: the vanilla light next to TightBeam. | ALT + mouse wheel: wide flood or narrow spot. |
+| ![Reach](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/reach.jpg) | ![Flood](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/flood.jpg) |
+| Down an alley: vanilla next to the narrow beam at the far gate. | Same alley: narrow throw next to the wide flood. |
 
 ## Requirements
 
