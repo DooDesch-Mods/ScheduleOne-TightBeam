@@ -56,10 +56,10 @@ On/off uses your game's own flashlight key; the focus modifier is rebindable in 
 
 | | |
 |---|---|
-| ![Narrow throw](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/far-throw.jpg) | ![Wide flood](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-flood.jpg) |
-| Narrow end: a tight cone that reaches far into the dark. | Wide end: a broad flood right in front of you. |
-| ![Narrow spot](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/narrow-spot.jpg) | ![Street](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/street.jpg) |
-| Same tree as the wide flood, narrow end. | A tight spot on a wall across the street. |
+| ![Vanilla vs TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/vanilla-vs-tightbeam.jpg) | ![Wide vs narrow](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-vs-narrow.jpg) |
+| Same wall, same flashlight: the vanilla light next to TightBeam. | ALT + mouse wheel: wide flood or narrow spot. |
+| ![Reach](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/reach.jpg) | ![Flood](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/flood.jpg) |
+| Down an alley: vanilla next to the narrow beam at the far gate. | Same alley: narrow throw next to the wide flood. |
 
 ## Requirements
 

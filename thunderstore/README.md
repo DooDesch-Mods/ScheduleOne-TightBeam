@@ -47,8 +47,8 @@ On/off uses your game's own flashlight key; the focus modifier is rebindable in 
 
 ## Screenshots
 
-![Narrow throw](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/far-throw.jpg)
-![Wide flood](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-flood.jpg)
+![Vanilla vs TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/vanilla-vs-tightbeam.jpg)
+![Wide vs narrow](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-vs-narrow.jpg)
 
 ## Requirements
 
