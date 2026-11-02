@@ -12,7 +12,7 @@
 ![Status](https://img.shields.io/badge/status-working-brightgreen)
 [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
 
-[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn/badge.svg)](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn)
+[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_oITnl2MOEjldCeBoiU-T9H2Q/badge.svg)](https://mlvscan.com/attestations/att_oITnl2MOEjldCeBoiU-T9H2Q)
 
 ![TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/header.jpg)
 
