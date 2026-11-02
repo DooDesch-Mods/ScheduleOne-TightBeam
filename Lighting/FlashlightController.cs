@@ -49,6 +49,11 @@ namespace TightBeam.Lighting
         public bool IsOn => _isOn;
         public bool HasLight => _light != null;
 
+#if DEBUG
+        /// <summary>Debug only: while set, the beam stays dark and the vanilla flashlight lights show instead.</summary>
+        internal bool DebugShowVanilla;
+#endif
+
         // The composed beam BEFORE the transient-effect multiplier. This is what co-op replicates: effects are sent
         // once as an event and re-run locally on each machine, so streaming their per-frame value would fight them.
         private float _wireIntensity, _wireRange, _wireAngle;
@@ -156,6 +161,16 @@ namespace TightBeam.Lighting
 
             // TRANSIENT EFFECTS: a final multiplicative modulation on intensity (never toggles Light.enabled).
             intensity *= _fx.Multiplier();
+
+#if DEBUG
+            // tbvanilla: hide the cone and hand the game's own flashlight lights back, for side-by-side captures.
+            if (DebugShowVanilla)
+            {
+                if (_light.enabled) _light.enabled = false;
+                VanillaLightSync.Apply(false);
+                return;
+            }
+#endif
 
             _light.intensity = Mathf.Max(0f, intensity);
             _light.range = Mathf.Clamp(range, 2f, 60f);

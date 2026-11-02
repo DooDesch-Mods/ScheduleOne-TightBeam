@@ -25,7 +25,8 @@ namespace TightBeam.DevTools
             new[] { "tbon", "switch the game flashlight on", "tbon" },
             new[] { "tboff", "switch the game flashlight off", "tboff" },
             new[] { "tbfocus", "set the focus target, 0 = narrow throw, 1 = wide flood", "tbfocus 0.2" },
-            new[] { "tbfx", "run an effect: blink [times interval], flicker [strength seconds hz], pulse [amp period seconds], stop", "tbfx flicker 0.6 3 12" },
+            new[] { "tbvanilla", "1 = hide the beam and show the game's own flashlight light, 0 = back to TightBeam", "tbvanilla 1" },
+            new[] { "tbfx","run an effect: blink [times interval], flicker [strength seconds hz], pulse [amp period seconds], stop", "tbfx flicker 0.6 3 12" },
         };
 
         private static int _lastFrame = -1;
@@ -85,6 +86,10 @@ namespace TightBeam.DevTools
                     if (parts.Length < 2 || !TryFloat(parts[1], out float f)) { Core.Log.Warning("[Debug] tbfocus <0-1>"); break; }
                     c.SetFocus(f);
                     Core.Log.Msg($"[Debug] tbfocus: target {Mathf.Clamp01(f):0.00}");
+                    break;
+                case "tbvanilla":
+                    c.DebugShowVanilla = parts.Length < 2 || parts[1] != "0";
+                    Core.Log.Msg($"[Debug] tbvanilla: {(c.DebugShowVanilla ? "showing the vanilla flashlight light" : "showing the TightBeam cone")}, flashlight {(c.IsOn ? "on" : "off")}");
                     break;
                 case "tbfx":
                     Fx(c, parts);
