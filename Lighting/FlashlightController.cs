@@ -236,6 +236,8 @@ namespace TightBeam.Lighting
         public void NudgeFocus(float delta) => MoveFocusTarget(delta);
         public void SetFocus(float value) => SnapFocusTarget(value);
         public float Focus => _focus;
+        /// <summary>True while the TightBeam cone itself is lit this frame.</summary>
+        internal bool BeamLit => _light != null && _light.enabled;
 
         /// <summary>Per-frame focus scroll input (called every frame while the modifier is held). Slow scrolling = fine
         /// FocusSensitivity steps; faster scrolling ramps the step up on a super-linear curve; a genuine fast FLICK

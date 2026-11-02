@@ -95,6 +95,10 @@ namespace TightBeam
             // Outside gameplay the board still gets pumped, so a notice left over from the last session drains
             // instead of sitting in a lobby that outlived the scene.
             if (!_inMain) { c.DisableRig(); RemoteBeams.DisableAll(); BeamBoard.Tick(false); return; }
+            // Read the game's flashlight state again here. Phone.Update switches the lamp on in the toggle frame,
+            // and MelonLoader's OnUpdate can run before it; LateUpdate always runs after every Update, so this read
+            // lights the cone and darkens the vanilla lamp in the same frame the lamp comes on.
+            c.SyncOnFromGame();
 #if SNITCH
             using (Profiler.Sample("TightBeam.Frame"))
             {
@@ -115,6 +119,9 @@ namespace TightBeam
             // even while our own is off - we are drawing their flashlight, not ours.
             BeamBoard.Tick(true);
             RemoteBeams.Tick(Time.deltaTime);
+#endif
+#if DEBUG
+            DevTools.FlashProbe.Tick();
 #endif
         }
     }
