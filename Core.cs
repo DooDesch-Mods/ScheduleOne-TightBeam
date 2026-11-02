@@ -10,6 +10,9 @@ using Snitch.Api;
 
 [assembly: MelonInfo(typeof(TightBeam.Core), "TightBeam", DooDesch.ModVersion.Current, "DooDesch", "https://github.com/DooDesch-Mods/ScheduleOne-TightBeam")]
 [assembly: MelonGame("TVGS", "Schedule I")]
+// The patches go in on the first Main scene (see OnSceneWasInitialized). Without this MelonLoader would also apply
+// them at load, and the second PatchAll would hang every prefix twice.
+[assembly: HarmonyDontPatchAll]
 
 namespace TightBeam
 {
