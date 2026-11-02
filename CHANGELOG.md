@@ -3,6 +3,13 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.1.2] - 2026-11-02
+
+### Fixed
+
+- Works on Schedule I 0.4.7.
+- Errors in the background now show up in the log instead of failing quietly.
+
 ## [2.1.1] - 2026-08-04
 
 ### Fixed
