@@ -23,6 +23,16 @@
        released version and cannot drift out of it. MUST come after the Workspace Remove so CI keeps the file. -->
   <Import Project="$(MSBuildThisFileDirectory)../Workspace/build/ModVersion.props" Condition="Exists('$(MSBuildThisFileDirectory)../Workspace/build/ModVersion.props')" />
   <Import Project="$(MSBuildThisFileDirectory)Workspace/build/ModVersion.props" Condition="Exists('$(MSBuildThisFileDirectory)Workspace/build/ModVersion.props')" />
+  <!-- The Hash command-list shim for the Debug console words, linked from the sibling Hash repo when there is one
+       and from the workspace copy otherwise. After the Workspace Remove above, so CI keeps it. -->
+  <PropertyGroup>
+    <HashShimPath Condition="Exists('$(MSBuildThisFileDirectory)../Hash/Hash.Api/HashCommands.cs')">$(MSBuildThisFileDirectory)../Hash/Hash.Api/HashCommands.cs</HashShimPath>
+    <HashShimPath Condition="'$(HashShimPath)' == '' And Exists('$(WorkspaceLibPath)/hash-api/HashCommands.cs')">$(WorkspaceLibPath)/hash-api/HashCommands.cs</HashShimPath>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(HashShimPath)' != '' And '$(Configuration)' == 'Debug'">
+    <Compile Include="$(HashShimPath)" Link="Hash.Api/HashCommands.cs" />
+  </ItemGroup>
+
   <!-- Where a build is allowed to install: the test copy by default, and never a real game installation
        without saying so out loud. See Workspace/build/Deploy.props. -->
   <Import Project="$(MSBuildThisFileDirectory)../Workspace/build/Deploy.props" Condition="Exists('$(MSBuildThisFileDirectory)../Workspace/build/Deploy.props')" />

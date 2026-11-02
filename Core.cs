@@ -35,6 +35,10 @@ namespace TightBeam
             FlashlightController.Instance.InitFromPrefs();
             BridgeHost.Install(); // expose the reflection API to consumer mods immediately (load-order-proof)
             BeamPostBuilder.Start(); // subscribe to the controller's effect events before anything can fire
+#if DEBUG
+            // The debug words are answered in a SubmitCommand prefix; this puts them in the game's command list.
+            DevTools.DebugConsole.DeclareForTools();
+#endif
             Log.Msg($"TightBeam initialized. Enabled={TightBeamPreferences.Enabled}. On/off follows the game flashlight; " +
                     $"hold {TightBeamPreferences.FocusModifierKey} + mouse wheel = focus/Pegel.");
         }
