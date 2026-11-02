@@ -14,6 +14,8 @@
 
 [![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn/badge.svg)](https://mlvscan.com/attestations/att_AvorISqxDpewJd7oO4yKiyBn)
 
+![TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/header.jpg)
+
 ## Features
 
 - **A beam you can aim and shape.** Hold **ALT + mouse wheel** to slide a single Focus axis: the wide
@@ -49,6 +51,15 @@
 | `ALT` + mouse wheel | Focus: wide near-flood to tight far-throw |
 
 On/off uses your game's own flashlight key; the focus modifier is rebindable in TightBeam's config.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Narrow throw](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/far-throw.jpg) | ![Wide flood](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/wide-flood.jpg) |
+| Narrow end: a tight cone that reaches far into the dark. | Wide end: a broad flood right in front of you. |
+| ![Narrow spot](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/narrow-spot.jpg) | ![Street](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/street.jpg) |
+| Same tree as the wide flood, narrow end. | A tight spot on a wall across the street. |
 
 ## Requirements
 
