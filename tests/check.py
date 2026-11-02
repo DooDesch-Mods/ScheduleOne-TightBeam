@@ -120,6 +120,13 @@ def main():
         errors = [l for l in out if re.search(r"\[ERROR\]|Exception", l)]
         r.check("tbfx %s logs no error" % fx, not errors, errors[0] if errors else "")
 
+    # The game's own flashlight light must never be lit while TightBeam runs, not even in the frame the lamp
+    # switches on. 10 on/off cycles of 20 frames each, sampled after TightBeam's LateUpdate.
+    out = r.cmd("tbflashprobe 10", wait=15.0)
+    probe = next((l for l in out if "[Debug] tbflashprobe: PASS" in l or "[Debug] tbflashprobe: FAIL" in l), None)
+    r.check("no vanilla flashlight frame on toggle", probe is not None and "PASS" in probe,
+            probe.split("tbflashprobe:", 1)[1].strip() if probe else "no result line within 15 s")
+
     time.sleep(1.0)
     r.cmd("tboff", wait=1.5)
     s, _ = r.status()
