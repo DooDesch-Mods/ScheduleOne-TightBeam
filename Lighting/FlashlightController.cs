@@ -194,8 +194,8 @@ namespace TightBeam.Lighting
                     on = pf != null && pf.activeSelf;
                 }
             }
-            catch { return; }
-            if (on != _isOn) { _isOn = on; try { Toggled?.Invoke(on); } catch { } }
+            catch (Exception ex) { Diag.Warn("flashlight.read", ex); return; }
+            if (on != _isOn) { _isOn = on; try { Toggled?.Invoke(on); } catch (Exception ex) { Diag.Error("flashlight.toggled", ex); } }
         }
 
         // API on/off drives the game's own flashlight (with its sound + stealth), so the one state stays authoritative.
@@ -206,12 +206,12 @@ namespace TightBeam.Lighting
                 if (PlayerSingleton<Phone>.InstanceExists && PlayerSingleton<Phone>.Instance.FlashlightOn != on)
                     PlayerSingleton<Phone>.Instance.ToggleFlashlight();
             }
-            catch { }
+            catch (Exception ex) { Diag.Error("flashlight.set-on", ex); }
         }
         public void Toggle()
         {
             try { if (PlayerSingleton<Phone>.InstanceExists) PlayerSingleton<Phone>.Instance.ToggleFlashlight(); }
-            catch { }
+            catch (Exception ex) { Diag.Error("flashlight.toggle", ex); }
         }
 
         private void MoveFocusTarget(float delta) { _focusTarget = Mathf.Clamp01(_focusTarget + delta); _manualRange = null; _manualAngle = null; }
@@ -219,6 +219,7 @@ namespace TightBeam.Lighting
 
         /// <summary>Nudge the focus TARGET (the eased display value chases it). Kept for API stability.</summary>
         public void NudgeFocus(float delta) => MoveFocusTarget(delta);
+        public void SetFocus(float value) => SnapFocusTarget(value);
         public float Focus => _focus;
 
         /// <summary>Per-frame focus scroll input (called every frame while the modifier is held). Slow scrolling = fine
@@ -323,7 +324,7 @@ namespace TightBeam.Lighting
         // would roll its own noise and the same flicker would look different to each player.
         private void RaiseFx(char code, float a, float b, float c)
         {
-            try { FxRaised?.Invoke(code, a, b, c); } catch { }
+            try { FxRaised?.Invoke(code, a, b, c); } catch (Exception ex) { Diag.Error("fx.raise", ex); }
         }
 
         /// <summary>Seed of the effect that is running, for a listener that needs to forward it.</summary>

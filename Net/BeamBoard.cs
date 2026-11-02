@@ -72,7 +72,7 @@ namespace TightBeam.Net
                     if (l == null || !l.IsInLobby) return 0UL;
                     return l.LobbyID;
                 }
-                catch { return 0UL; }
+                catch (Exception ex) { Diag.Warn("board.lobby", ex); return 0UL; }
             }
         }
 
@@ -197,7 +197,7 @@ namespace TightBeam.Net
                 if (e.m_ulSteamIDMember == e.m_ulSteamIDLobby) return;
                 ReadOne(e.m_ulSteamIDLobby, e.m_ulSteamIDMember);
             }
-            catch { }
+            catch (Exception ex) { Diag.Warn("board.callback", ex); }
         }
 
         /// <summary>Re-read every member. Enumerated through Steam rather than the game's player list because the
@@ -241,7 +241,7 @@ namespace TightBeam.Net
                 if (BeamWire.TryDecode(raw, out BeamPost p)) _posts[member] = p;
                 else _posts.Remove(member);
             }
-            catch { }
+            catch (Exception ex) { Diag.Warn("board.read", ex); }
         }
 
         // ----- writing -----------------------------------------------------------------------------------------
@@ -271,7 +271,7 @@ namespace TightBeam.Net
                     if (string.IsNullOrEmpty(back))
                         Core.Log?.Warning("[board] our beam did not stick in the lobby - another mod may have used up the member-data slots. Others will see default cones.");
                 }
-                catch { }
+                catch (Exception ex) { Diag.Warn("board.verify", ex); }
             }
         }
 

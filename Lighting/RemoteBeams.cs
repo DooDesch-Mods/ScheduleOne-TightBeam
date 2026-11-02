@@ -107,7 +107,7 @@ namespace TightBeam.Lighting
             {
                 _broken = true;
                 Core.Log?.Error("RemoteBeams disabled for this session after an error: " + ex);
-                try { DisableAll(); } catch { }
+                try { DisableAll(); } catch (Exception ex2) { Diag.Error("remote.disable-after-error", ex2); }
             }
         }
 
@@ -237,7 +237,7 @@ namespace TightBeam.Lighting
                     Player p = list[j];
                     if (p == null) continue;
                     bool local;
-                    try { local = p.IsLocalPlayer; } catch { continue; }
+                    try { local = p.IsLocalPlayer; } catch (Exception ex) { Diag.Warn("remote.is-local", ex); continue; }
                     if (local) continue;
 
                     ulong id = PlayerIdentity.SteamIdOf(p);
@@ -340,7 +340,7 @@ namespace TightBeam.Lighting
                 bool on = e.SawVanillaTransition || !e.HasPost ? vanilla : e.Post.On;
                 return on && !e.Owner.IsInVehicle;
             }
-            catch { return false; }
+            catch (Exception ex) { Diag.Warn("remote.is-lit", ex); return false; }
         }
 
         private static bool ResolveAnchor(Entry e)
@@ -359,7 +359,7 @@ namespace TightBeam.Lighting
                 e.Anchor = t;
                 return t != null;
             }
-            catch { return false; }
+            catch (Exception ex) { Diag.Warn("remote.anchor", ex); return false; }
         }
 
         // ----- mod API (read-only) -----------------------------------------------------------------------------
@@ -378,7 +378,7 @@ namespace TightBeam.Lighting
             e.ToggleOwed = false;
             for (int i = 0; i < _toggledListeners.Count; i++)
             {
-                try { _toggledListeners[i](e.SteamId, e.Lit); } catch { }
+                try { _toggledListeners[i](e.SteamId, e.Lit); } catch (Exception ex) { Diag.Error("api.remote-toggled-listener", ex); }
             }
         }
 
@@ -388,7 +388,7 @@ namespace TightBeam.Lighting
         internal static bool InMultiplayer()
         {
             try { var l = Player.PlayerList; return l != null && l.Count > 1; }
-            catch { return false; }
+            catch (Exception ex) { Diag.Warn("remote.player-list", ex); return false; }
         }
 
         /// <summary>Every other player we know a beam for. Drawn or not, and whether or not rendering is switched
@@ -620,7 +620,7 @@ namespace TightBeam.Lighting
         /// not own.</summary>
         private static bool Take(OptimizedLight ol)
         {
-            try { if (ol != null && ol.Enabled) { ol.Enabled = false; ol.UpdateLightState(); return true; } } catch { }
+            try { if (ol != null && ol.Enabled) { ol.Enabled = false; ol.UpdateLightState(); return true; } } catch (Exception ex) { Diag.Warn("remote.take-light", ex); }
             return false;
         }
 
@@ -632,7 +632,7 @@ namespace TightBeam.Lighting
         private static void Give(OptimizedLight ol, bool weTurnedItOff)
         {
             if (!weTurnedItOff) return;
-            try { if (ol != null && !ol.Enabled) { ol.Enabled = true; ol.UpdateLightState(); } } catch { }
+            try { if (ol != null && !ol.Enabled) { ol.Enabled = true; ol.UpdateLightState(); } } catch (Exception ex) { Diag.Warn("remote.give-light", ex); }
         }
 
         // ----- teardown ----------------------------------------------------------------------------------------
@@ -642,7 +642,7 @@ namespace TightBeam.Lighting
         public static void NewSession()
         {
             _broken = false;
-            try { DisableAll(); } catch { }
+            try { DisableAll(); } catch (Exception ex) { Diag.Warn("remote.new-session", ex); }
             _nextRoster = 0f;
             _nextSelect = 0f;
         }
