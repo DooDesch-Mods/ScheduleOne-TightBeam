@@ -4,6 +4,8 @@
 
 **Download:** [Nexus Mods](https://www.nexusmods.com/schedule1/mods/2255) · [Thunderstore](https://thunderstore.io/c/schedule-i/p/DooDesch/TightBeam/) · [GitHub Releases](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/releases)
 
+[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de)
+
 > A proper handheld flashlight for Schedule I. It upgrades the game's own flashlight - toggle it with your
 > flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
 > far-reaching throw. No map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
@@ -129,6 +131,12 @@ using (var ov = Beam.BeginOverride("MyMod"))   // scoped, per-field override
     ov.SetIntensity(1f).SetSpotAngle(28f);     // dim + narrow while in a zone
 }                                              // released -> back to the player's own settings
 ```
+
+## Community
+
+[![DooDesch Mods on Discord](https://mods.doodesch.de/img/card.svg)](https://mods.doodesch.de)
+
+Join the DooDesch Mods Discord: update pings, polls on what comes next, and playtests of new mods.
 
 ## Credits
 
