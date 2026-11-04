@@ -2,8 +2,6 @@
 
 > 🛟 **Need help or found a bug?** Get support at [support.doodesch.de/tightbeam](https://support.doodesch.de/tightbeam).
 
-[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de)
-
 > **A proper flashlight.** It upgrades the game's own flashlight - toggle it with your flashlight key, then
 > hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
 > map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
@@ -11,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-2.1.1-blue)
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
-[![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
+[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de) [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
 
 [![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-/badge.svg)](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-)
 
