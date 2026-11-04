@@ -2,6 +2,8 @@
 
 > 🛟 **Need help or found a bug?** Get support at [support.doodesch.de/tightbeam](https://support.doodesch.de/tightbeam).
 
+**Download:** [Nexus Mods](https://www.nexusmods.com/schedule1/mods/2255) · [Thunderstore](https://thunderstore.io/c/schedule-i/p/DooDesch/TightBeam/) · [GitHub Releases](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/releases)
+
 > A proper handheld flashlight for Schedule I. It upgrades the game's own flashlight - toggle it with your
 > flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
 > far-reaching throw. No map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
@@ -72,9 +74,15 @@ No other dependencies - just MelonLoader. TightBeam reads the game's own flashli
 
 ## Installation
 
-### Recommended: a Thunderstore mod manager
+### Recommended: Nexus Mods
 
-Install with r2modman / Gale from the Schedule I community; MelonLoader is pulled in automatically.
+1. Install **MelonLoader 0.7.3** for Schedule I ([melonwiki.xyz](https://melonwiki.xyz/)).
+2. Download TightBeam from [Nexus Mods](https://www.nexusmods.com/schedule1/mods/2255) and install it with Vortex,
+   or put **`TightBeam.dll`** into your Schedule I `Mods/` folder.
+
+### Thunderstore mod manager
+
+Install with r2modman / Gale from the Schedule I community; MelonLoader is pulled in automatically. Find it on the [Thunderstore page](https://thunderstore.io/c/schedule-i/p/DooDesch/TightBeam/).
 
 ### Manual
 
