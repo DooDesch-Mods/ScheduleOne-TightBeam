@@ -2,6 +2,8 @@
 
 > 🛟 **Need help or found a bug?** Get support at [support.doodesch.de/tightbeam](https://support.doodesch.de/tightbeam).
 
+[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de)
+
 > **A proper flashlight.** It upgrades the game's own flashlight - toggle it with your flashlight key, then
 > hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight, far-reaching throw. No
 > map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
@@ -60,6 +62,12 @@ On/off uses your game's own flashlight key; the focus modifier is rebindable in 
 `MinIntensity`/`MaxIntensity` (1/20), `RangeWide`/`RangeNarrow` (8/34), `AngleWide`/`AngleNarrow` (66/16),
 `ColorHex` (#E6F2FF), `CastShadows`, plus fine focus-feel tuning. In `UserData/MelonPreferences.cfg`
 under `[TightBeam]`.
+
+## Community
+
+[![DooDesch Mods on Discord](https://mods.doodesch.de/img/card.svg)](https://mods.doodesch.de)
+
+Join the DooDesch Mods Discord: update pings, polls on what comes next, and playtests of new mods.
 
 ## License
 
