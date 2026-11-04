@@ -4,8 +4,6 @@
 
 **Download:** [Nexus Mods](https://www.nexusmods.com/schedule1/mods/2255) · [Thunderstore](https://thunderstore.io/c/schedule-i/p/DooDesch/TightBeam/) · [GitHub Releases](https://github.com/DooDesch-Mods/ScheduleOne-TightBeam/releases)
 
-[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de)
-
 > A proper handheld flashlight for Schedule I. It upgrades the game's own flashlight - toggle it with your
 > flashlight key, then hold **ALT + mouse wheel** to dial the beam from a wide near-flood to a tight,
 > far-reaching throw. No map-wide floodlight, no blinding glare - just a light that feels like a flashlight.
@@ -14,7 +12,7 @@
 ![Game](https://img.shields.io/badge/game-Schedule%20I-purple)
 ![MelonLoader](https://img.shields.io/badge/MelonLoader-0.7.3+-green)
 ![Status](https://img.shields.io/badge/status-working-brightgreen)
-[![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
+[![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de) [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
 
 [![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-/badge.svg)](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-)
 
