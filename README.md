@@ -14,7 +14,7 @@
 ![Status](https://img.shields.io/badge/status-working-brightgreen)
 [![Discord](https://mods.doodesch.de/img/badge.svg)](https://mods.doodesch.de) [![Polyfill](https://polyfill.doomods.com/badge/tightbeam.svg)](https://polyfill.doomods.com/mod/tightbeam)
 
-[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-/badge.svg)](https://mlvscan.com/attestations/att_NI0FURSI8ghICi-S8BDOcW1-)
+[![MLVScan TightBeam.dll](https://mlvscan.com/attestations/att_56xem2lFyQ3hA5qGysGwowaZ/badge.svg)](https://mlvscan.com/attestations/att_56xem2lFyQ3hA5qGysGwowaZ)
 
 ![TightBeam](https://raw.githubusercontent.com/DooDesch-Mods/ScheduleOne-TightBeam/main/docs/img/header.jpg)
 
