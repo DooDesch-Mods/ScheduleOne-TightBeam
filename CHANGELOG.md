@@ -3,6 +3,12 @@
 All notable changes to TightBeam are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.1.4] - 2026-11-19
+
+### Fixed
+
+- Turning the flashlight on no longer flashes the game's own lamp for a moment before the beam appears.
+
 ## [2.1.3] - 2026-11-02
 
 ### Changed
